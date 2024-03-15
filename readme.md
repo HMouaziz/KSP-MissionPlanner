@@ -62,10 +62,11 @@ A single-page application (SPA) model with a modular tab system, allowing seamle
 
 ### Mockups
 
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![Mockup image](https://github.com/HMouaziz/KSP-MissionPlanner/blob/main/Screenshot-2024-03-15-01.png?raw=true)
+![Mockup image](https://github.com/HMouaziz/KSP-MissionPlanner/blob/main/Screenshot-2024-03-15-02.png?raw=true)
+![Mockup image](https://github.com/HMouaziz/KSP-MissionPlanner/blob/main/Screenshot-2024-03-15-03.png?raw=true)
+![Mockup image](https://github.com/HMouaziz/KSP-MissionPlanner/blob/main/Screenshot-2024-03-15-04.png?raw=true)
+![Mockup image](https://github.com/HMouaziz/KSP-MissionPlanner/blob/main/Screenshot-2024-03-15-05.png?raw=true)
 
 ### Data
 
