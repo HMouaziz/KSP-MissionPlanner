@@ -103,8 +103,52 @@ This planner caters to KSP players engaged with the Realism Overhaul mod, provid
 - A moderation or review system for new craft uploads could be beneficial to maintain the quality and relevance of the repository.
 - Implementing data validation checks during the upload process will ensure that all necessary craft details are provided and adhere to expected formats or standards.
 
+# Mission Calendar 
 
-Mission Calendar: Visual scheduling tool for planning missions, tracking launch windows, and celestial events.
+## User Story
+
+- **Type of User**: Users engaged in planning and scheduling within the Kerbal Space Program, who value a visual approach to organizing their missions and related activities.
+- **Action**: Users have the capability to view schedules in a calendar format, with flexibility in viewing options (day, week, month, year). Utilities for highlighting and tagging time periods for specific planning purposes are essential, considering the simulation-based nature of the game where "current time" is a variable managed by the user. The calendar should facilitate planning by allowing users to manually input and adjust mission events and timelines.
+- **Benefit**: This feature empowers users to visually plan and manage their space program's activities, enhancing their strategic decision-making process by providing a comprehensive overview of their scheduled missions and significant events.
+
+## Functional Requirements
+
+### Data Inputs
+
+- **Manual Event Creation**: Users can manually create events or mission schedules on the calendar, accommodating the game's nature where time is a user-managed element.
+- **Highlighting and Tagging**: Allows for marking specific time periods for events or objectives, providing visual cues for planning.
+
+### Behaviors
+
+- **Flexible View Modes**: Users can switch between day, week, month, and year views to suit their planning needs.
+- **Direct Editing Links**: Events on the calendar link to editing pages or modals, allowing for detailed planning and adjustments.
+- **Customization of Event Displays**: Users can toggle the visibility of specific event types or planned activities to streamline their planning view.
+
+### Data Outputs
+
+- Organizes and displays mission schedules and planning events in a user-friendly visual format, without generating new data outputs.
+
+## Acceptance Criteria
+
+### Minimum Functionality
+
+- The core functionality includes the ability to view, manually input, and adjust events within the calendar in various view modes, without relying on real-time alerts or tracking of "ongoing" missions.
+
+### Performance Metrics
+
+- Efficiency in loading and updating the calendar view is crucial, ensuring a seamless planning experience.
+- Desktop optimization remains a priority, with consideration for tablet compatibility due to the detailed nature of mission planning.
+
+### Usability and Accessibility Standards
+
+- Intuitive navigation and ease of use are essential, with clear instructions for manually adding or adjusting events.
+- The calendar must adhere to web accessibility standards, ensuring inclusivity for all users, including those with disabilities.
+
+## Implementation Notes
+
+- Given the simulation context, the calendar's design should emphasize manual input and adjustment capabilities, acknowledging that "current time" and mission progress are uniquely managed by the user.
+- Future development could explore enhanced customization options, allowing users to create highly personalized planning views that reflect their specific campaign strategies and objectives.
+
 
 DeltaV Calculator: Essential tool for calculating the required DeltaV for mission stages.
 
