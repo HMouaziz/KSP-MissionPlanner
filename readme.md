@@ -731,7 +731,7 @@ No external APIs planned for direct integration, focusing on in-house developmen
 # Database Schema
 
 ## users
-- `user_id` (PK): INT, auto-increment
+- `id` (PK): INT, auto-increment
 - `username`: VARCHAR
 - `email`: VARCHAR, unique
 - `password_hash`: VARCHAR
@@ -739,7 +739,7 @@ No external APIs planned for direct integration, focusing on in-house developmen
 - `last_login_at`: DATETIME, nullable
 
 ## missions
-- `mission_id` (PK): INT, auto-increment
+- `id` (PK): INT, auto-increment
 - `user_id` (FK): INT, references `users.user_id`
 - `name`: VARCHAR
 - `description`: TEXT, nullable
@@ -750,7 +750,7 @@ No external APIs planned for direct integration, focusing on in-house developmen
 - `updated_at`: DATETIME
 
 ## crafts
-- `craft_id` (PK): INT, auto-increment
+- `id` (PK): INT, auto-increment
 - `user_id` (FK): INT, references `users.user_id`
 - `name`: VARCHAR
 - `type`: VARCHAR
@@ -761,7 +761,7 @@ No external APIs planned for direct integration, focusing on in-house developmen
 - `research_and_development_cost`: DECIMAL(10,2), nullable
 
 ## craft_specs
-- `spec_id` (PK): INT, auto-increment
+- `id` (PK): INT, auto-increment
 - `craft_id` (FK): INT, references `crafts.craft_id`
 - `height`: DECIMAL(10,2), nullable
 - `width`: DECIMAL(10,2), nullable
@@ -771,13 +771,13 @@ No external APIs planned for direct integration, focusing on in-house developmen
 - Additional specifications as needed...
 
 ## mission_crafts
-- `mission_craft_id` (PK): INT, auto-increment
+- `id` (PK): INT, auto-increment
 - `mission_id` (FK): INT, references `missions.mission_id`
 - `craft_id` (FK): INT, references `crafts.craft_id`
 - `role`: VARCHAR
 
 ## launchpads
-- `launchpad_id` (PK): INT, auto-increment
+- `id` (PK): INT, auto-increment
 - `name`: VARCHAR
 - `description`: TEXT, nullable
 - `current_use`: VARCHAR, nullable
@@ -785,7 +785,7 @@ No external APIs planned for direct integration, focusing on in-house developmen
 - `user_id` (FK): INT, references `users.user_id`
 
 ## mission_objectives
-- `objective_id` (PK): INT, auto-increment
+- `id` (PK): INT, auto-increment
 - `mission_id` (FK): INT, references `missions.mission_id`
 - `title`: VARCHAR
 - `description`: TEXT, nullable
@@ -793,7 +793,7 @@ No external APIs planned for direct integration, focusing on in-house developmen
 - `data`: JSON, nullable
 
 ## mission_stages
-- `stage_id` (PK): INT, auto-increment
+- `id` (PK): INT, auto-increment
 - `mission_id` (FK): INT, references `missions.mission_id`
 - `title`: VARCHAR
 - `description`: TEXT, nullable
@@ -801,14 +801,14 @@ No external APIs planned for direct integration, focusing on in-house developmen
 - `data`: JSON, nullable
 
 ## tool_save_data
-- `save_data_id` (PK): INT, auto-increment
+- `id` (PK): INT, auto-increment
 - `mission_id` (FK): INT, references `missions.mission_id`
 - `tool_type`: VARCHAR
 - `data`: JSON
 - `created_at`: DATETIME
 
 ## user_settings
-- `setting_id` (PK): INT, auto-increment
+- `id` (PK): INT, auto-increment
 - `user_id` (FK): INT, references `users.user_id`
 - `name`: VARCHAR
 - `value`: VARCHAR
@@ -890,8 +890,8 @@ Example response:
   "fuelRequired": 1500
 }
 ```
-###User Settings Endpoints
-####Settings CRUD
+### User Settings Endpoints
+#### Settings CRUD
 
     GET /api/user_settings: Retrieve settings for the current user.
     PUT /api/user_settings: Update settings for the current user.
