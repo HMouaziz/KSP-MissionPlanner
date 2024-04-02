@@ -740,7 +740,7 @@ No external APIs planned for direct integration, focusing on in-house developmen
 
 ## missions
 - `id` (PK): INT, auto-increment
-- `user_id` (FK): INT, references `users.user_id`
+- `user_id` (FK): INT, references `users.id`
 - `name`: VARCHAR
 - `description`: TEXT, nullable
 - `budget`: DECIMAL(10,2), nullable
@@ -751,7 +751,7 @@ No external APIs planned for direct integration, focusing on in-house developmen
 
 ## crafts
 - `id` (PK): INT, auto-increment
-- `user_id` (FK): INT, references `users.user_id`
+- `user_id` (FK): INT, references `users.id`
 - `name`: VARCHAR
 - `type`: VARCHAR
 - `specifications`: JSON, nullable
@@ -762,7 +762,7 @@ No external APIs planned for direct integration, focusing on in-house developmen
 
 ## craft_specs
 - `id` (PK): INT, auto-increment
-- `craft_id` (FK): INT, references `crafts.craft_id`
+- `craft_id` (FK): INT, references `crafts.id`
 - `height`: DECIMAL(10,2), nullable
 - `width`: DECIMAL(10,2), nullable
 - `length`: DECIMAL(10,2), nullable
@@ -772,8 +772,8 @@ No external APIs planned for direct integration, focusing on in-house developmen
 
 ## mission_crafts
 - `id` (PK): INT, auto-increment
-- `mission_id` (FK): INT, references `missions.mission_id`
-- `craft_id` (FK): INT, references `crafts.craft_id`
+- `mission_id` (FK): INT, references `missions.id`
+- `craft_id` (FK): INT, references `crafts.id`
 - `role`: VARCHAR
 
 ## launchpads
@@ -782,11 +782,11 @@ No external APIs planned for direct integration, focusing on in-house developmen
 - `description`: TEXT, nullable
 - `current_use`: VARCHAR, nullable
 - `use_history`: JSON, nullable
-- `user_id` (FK): INT, references `users.user_id`
+- `user_id` (FK): INT, references `users.id`
 
 ## mission_objectives
 - `id` (PK): INT, auto-increment
-- `mission_id` (FK): INT, references `missions.mission_id`
+- `mission_id` (FK): INT, references `missions.id`
 - `title`: VARCHAR
 - `description`: TEXT, nullable
 - `type`: VARCHAR
@@ -794,7 +794,7 @@ No external APIs planned for direct integration, focusing on in-house developmen
 
 ## mission_stages
 - `id` (PK): INT, auto-increment
-- `mission_id` (FK): INT, references `missions.mission_id`
+- `mission_id` (FK): INT, references `missions.id`
 - `title`: VARCHAR
 - `description`: TEXT, nullable
 - `type`: VARCHAR
@@ -802,14 +802,14 @@ No external APIs planned for direct integration, focusing on in-house developmen
 
 ## tool_save_data
 - `id` (PK): INT, auto-increment
-- `mission_id` (FK): INT, references `missions.mission_id`
+- `mission_id` (FK): INT, references `missions.id`
 - `tool_type`: VARCHAR
 - `data`: JSON
 - `created_at`: DATETIME
 
 ## user_settings
 - `id` (PK): INT, auto-increment
-- `user_id` (FK): INT, references `users.user_id`
+- `user_id` (FK): INT, references `users.id`
 - `name`: VARCHAR
 - `value`: VARCHAR
 
