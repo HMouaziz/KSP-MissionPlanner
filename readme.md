@@ -667,6 +667,7 @@ This planner caters to KSP players engaged with the Realism Overhaul mod, provid
 - **Express**: Web framework for Node.js, facilitating API development.
 - **Node.js**: JavaScript runtime for executing JavaScript on the server-side.
 - **MySQL**: Database for storing and managing application data.
+- **Redis**: Database for storing authentication and session management data.
 - **Knex**: SQL query builder supporting MySQL, for easier database interactions.
 - **JSON Web Tokens (JWT)**: For handling authentication and securing API endpoints.
 - **bcrypt**: For password hashing and security.
@@ -897,7 +898,7 @@ Example response:
     PUT /api/user_settings: Update settings for the current user.
 
 
-# Authentication Documentation
+# Authentication
 
 ## Registration
 
