@@ -897,41 +897,46 @@ Example response:
     PUT /api/user_settings: Update settings for the current user.
 
 
-# Authentication
+# Authentication Documentation
 
 ## Registration
 
 - **Endpoint**: `POST /api/users/register`
-- **Function**: Allows a new user to create an account by providing a unique username, an email address, and a password.
+- **Purpose**: Allows new users to create an account by submitting a unique username, an email address, and a password.
 - **Data Submitted**:
-  - `username`: Must be unique across the system.
-  - `email`: Used for account verification and communication.
-  - `password`: Secured using bcrypt hashing on the server side.
+  - `username`: A unique identifier for the user across the system.
+  - `email`: The user's email address, utilized for account verification and important communications.
+  - `password`: User's password, which undergoes client-side hashing with a slow hashing function before transmission and is further secured with a server-side fast hashing function upon receipt.
 
 ## Login
 
 - **Endpoint**: `POST /api/users/login`
-- **Function**: Authenticates a user's credentials and initiates a session.
+- **Purpose**: Verifies user credentials against the stored hash and initiates an authenticated session if successful.
 - **Data Submitted**:
-  - `username`: The user's account username.
-  - `password`: The user's password, which will be verified against the hashed version stored in the database.
+  - `username`: The user's account identifier.
+  - `password`: The user's password, encrypted client-side with a nonce and transmitted securely. Server-side decryption and re-hashing occur before verification against the stored hash.
 
 ## Session Management
 
-Upon successful authentication, the system will create a session for the user. Session management will be handled through secure, HTTP-only cookies to maintain the state of the user's authentication as they navigate the application.
+- Upon successful authentication, a session is established for the user. This session is managed through secure, HTTP-only cookies, ensuring the integrity and confidentiality of the user's authenticated session as they navigate the application.
+- Sessions are designed to be resilient against common web vulnerabilities such as Cross-Site Scripting (XSS) and Cross-Site Request Forgery (CSRF).
 
 ## Security Measures
 
-- Passwords will be hashed using bcrypt to ensure that actual passwords are never stored in the database.
-- Sessions will be established using secure cookies that are not accessible via client-side scripts, mitigating the risk of XSS attacks.
-- The application will implement measures to prevent CSRF attacks.
+- **Client-Side Password Handling**: Passwords are hashed client-side using a slow hashing algorithm like bcrypt, combined with a unique salt for each user, before being encrypted for transmission.
+- **Secure Transmission**: Password hashes are encrypted with a nonce (unique for each transmission) before being sent over HTTPS, adding an extra layer of security against potential HTTPS vulnerabilities.
+- **Server-Side Processing**: Upon receipt, the encrypted hash is decrypted using the nonce. It is then re-hashed with a fast hashing algorithm for storage and verification, ensuring that the server never handles plaintext passwords.
+- **Session Security**: Utilizes secure, HTTP-only cookies for session management, protecting against XSS attacks. Additional measures are taken to safeguard against CSRF attacks.
 
 ## Logout
 
 - **Endpoint**: `GET /api/users/logout`
-- **Function**: Terminates the user's session, effectively logging them out of the application.
+- **Purpose**: Securely terminates the user's session and logs them out of the application, ensuring that session cookies are invalidated.
 
-Note: Specific implementation details for authentication, including the choice of tokens (such as JWT) or session management libraries, will be determined upon further research and after the upcoming authentication-focused lectures.
+## Implementation Notes
+
+- The exact mechanisms for nonce generation, transmission, and encryption/decryption will adhere to current best practices in cryptographic security to ensure the robustness of the system against attacks.
+- Further security features and best practices will be incorporated as the system is developed, with continuous updates to this documentation to reflect any changes or enhancements in our authentication strategy.
 
 
 # Roadmap
