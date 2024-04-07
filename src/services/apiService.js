@@ -9,7 +9,7 @@ const apiService = {
   async get(url) {
     try {
       const response = await requestClient.get(url);
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error('API call failed. Error: ', error);
       throw error;
@@ -18,7 +18,7 @@ const apiService = {
   async post(url, data) {
     try {
       const response = await requestClient.post(url, data);
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error('API call failed. Error: ', error);
       throw error;
@@ -27,7 +27,7 @@ const apiService = {
   async put(url, data) {
     try {
       const response = await requestClient.put(url, data);
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error('API call failed. Error: ', error);
       throw error;
@@ -36,7 +36,7 @@ const apiService = {
   async delete(url) {
     try {
       const response = await requestClient.delete(url);
-      return response.data;
+      return response.data.data;
     } catch (error) {
       console.error('API call failed. Error: ', error);
       throw error;

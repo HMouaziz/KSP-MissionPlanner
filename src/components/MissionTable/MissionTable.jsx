@@ -1,5 +1,4 @@
 import { DataTable } from "../DataTable/DataTable.jsx";
-import { useQuery } from "@tanstack/react-query";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import {
   DropdownMenu,
@@ -10,25 +9,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import axios from "axios";
 import MissionModal from "@/components/MissionModal/MissionModal.jsx";
 import {DeleteModal} from "@/components/DeleteModal/DeleteModal.jsx";
+import {useMissions} from "@/hooks/useMissions.js";
 
 
 export default function MissionTable() {
-  const {
-    isLoading,
-    error,
-    data,
-  } = useQuery({
-    queryKey: ["missions"],
-    queryFn: async () => {
-      const response = await axios
-        .get(`http://localhost:5050/api/missions`)
-        .then((res) => res.data);
-      return response.data;
-    },
-  });
+  const { missions } = useMissions()
+  const { data, isLoading, error} = missions
 
   const columns = [
     {

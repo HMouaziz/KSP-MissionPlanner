@@ -1,19 +1,19 @@
-import apiService from './apiService';
+import apiService from "./apiService";
 
 const missionService = {
-  async getAllMissions() {
-    return await apiService.get('/missions');
+  getAllMissions: async () => {
+    return await apiService.get("/missions");
   },
-  async getMission(id) {
+  getMission: async (id) => {
     return await apiService.get(`/missions/${id}`);
   },
-  async postMission(id) {
+  postMission: async (id) => {
     return await apiService.post(`/missions/${id}`);
   },
-  async putMission(id) {
+  putMission: async (id) => {
     return await apiService.put(`/missions/${id}`);
   },
-  async deleteMission(id) {
+  deleteMission: async (id) => {
     return await apiService.delete(`/missions/${id}`);
   },
 };
