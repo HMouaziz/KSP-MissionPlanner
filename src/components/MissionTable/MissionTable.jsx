@@ -65,9 +65,8 @@ export default function MissionTable() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
-              >
-                <MissionModal />
+              <DropdownMenuItem>
+                <MissionModal mission_id={id}/>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>

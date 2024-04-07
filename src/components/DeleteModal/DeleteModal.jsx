@@ -7,10 +7,13 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog.jsx";
 import {Button} from "@/components/ui/button.jsx";
+import {useMissions} from "@/hooks/useMissions.js";
 
 export const DeleteModal = ({ id }) => {
+  const { deleteMission } = useMissions()
+
   const handleDelete = () => {
-    console.log(id)
+    deleteMission(id)
   }
 
   return (
