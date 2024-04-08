@@ -34,24 +34,6 @@ export default function MissionTable() {
       },
     },
     {
-      accessorKey: "launch_date",
-      header: () => <div className="text-right">Launch Date</div>,
-      cell: ({ row }) => {
-        const date = new Date(row.getValue("launch_date"))
-        const formatted = new Intl.DateTimeFormat('en-GB').format(date);
-        return <div className="text-right font-medium">{formatted}</div>
-      },
-    },
-    {
-      accessorKey: "start_date",
-      header: () => <div className="text-right">Start Date</div>,
-      cell: ({ row }) => {
-        const date = new Date(row.getValue("start_date"))
-        const formatted = new Intl.DateTimeFormat('en-GB').format(date);
-        return <div className="text-right font-medium">{formatted}</div>
-      },
-    },
-    {
       id: "actions",
       cell: ({ row }) => {
         const id = row.original.id

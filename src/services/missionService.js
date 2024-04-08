@@ -7,11 +7,11 @@ const missionService = {
   getMission: async (id) => {
     return await apiService.get(`/missions/${id}`);
   },
-  postMission: async (id) => {
-    return await apiService.post(`/missions/${id}`);
+  postMission: async (missionData) => {
+    return await apiService.post(`/missions/`, missionData);
   },
-  putMission: async (id) => {
-    return await apiService.put(`/missions/${id}`);
+  putMission: async (id, missionData) => {
+    return await apiService.put(`/missions/${id}`, missionData);
   },
   deleteMission: async (id) => {
     return await apiService.delete(`/missions/${id}`);
