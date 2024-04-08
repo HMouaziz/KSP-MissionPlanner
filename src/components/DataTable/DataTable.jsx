@@ -75,17 +75,17 @@ export function DataTable({ columns, data }) {
                   key={row.id}
                   data-state={row.getIsSelected() ? "selected" : undefined}
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
                 </TableRow>
               ))}
-            <AddTableRow/>
+            <AddTableRow />
           </TableBody>
         </Table>
       </div>
