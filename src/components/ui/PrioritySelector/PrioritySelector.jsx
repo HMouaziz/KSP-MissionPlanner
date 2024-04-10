@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select.jsx"
 import { ChevronUp, Equal, ChevronDown } from 'lucide-react';
 
 export const PrioritySelector = () => {

@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import MissionTable from "@/components/MissionTable/MissionTable.jsx";
 import { MissionsProvider } from "@/context/MissionContext.jsx";
+import {MissionPage} from "@/pages/MissionPage/MissionPage.jsx";
 
 const queryClient = new QueryClient();
 
@@ -12,7 +12,7 @@ const App = () => {
       <MissionsProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<MissionTable />}></Route>
+            <Route path="/" element={<MissionPage />}></Route>
           </Routes>
         </BrowserRouter>
       </MissionsProvider>
