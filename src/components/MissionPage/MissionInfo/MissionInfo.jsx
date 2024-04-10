@@ -14,7 +14,7 @@ export const MissionInfo = () => {
   const status = "planned";
 
   return (
-    <Card className='border-none shadow-none w-full'>
+    <Card className='border-none shadow-none w-[80%]'>
       <CardHeader>
         <CardTitle>{name}</CardTitle>
       </CardHeader>

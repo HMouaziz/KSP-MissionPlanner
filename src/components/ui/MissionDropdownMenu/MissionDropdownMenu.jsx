@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { MoreHorizontal } from "lucide-react";
-import MissionModal from "@/components/MissionModal/MissionModal.jsx";
+import MissionModal from "@/components/MissionPage/MissionModal/MissionModal.jsx";
 import { DeleteModal } from "@/components/DeleteModal/DeleteModal.jsx";
 
 export const MissionDropdownMenu = ({ id }) => {

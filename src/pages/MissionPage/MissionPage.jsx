@@ -1,6 +1,6 @@
-import {MissionHeader} from "@/components/MissionHeader/MissionHeader.jsx";
-import {MissionInfo} from "@/components/MissionInfo/MissionInfo.jsx";
-import {MissionTabs} from "@/components/MissionTabs/MissionTabs.jsx";
+import {MissionHeader} from "@/components/MissionPage/MissionHeader/MissionHeader.jsx";
+import {MissionInfo} from "@/components/MissionPage/MissionInfo/MissionInfo.jsx";
+import {MissionTabs} from "@/components/MissionPage/MissionTabs/MissionTabs.jsx";
 
 export const MissionPage = () => {
   return (

@@ -5,9 +5,9 @@ export const MissionHeader = (  ) => {
 
   const id = '123fd57'
   return (
-    <header className='h-16 w-full flex items-center'>
-      <div className='flex flex-row gap-4 p-3'>
-        <Badge>{id}</Badge>
+    <header className='h-16 w-[80%] flex items-center'>
+      <div className='flex flex-row  gap-4 p-3 '>
+        <Badge variant='outline'>{id}</Badge>
         <PrioritySelector/>
         <TagComboBox/>
       </div>

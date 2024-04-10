@@ -3,10 +3,10 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/tabs"
-import {MissionDetails} from "@/components/MissionDetails/MissionDetails.jsx";
-import {MissionObjectives} from "@/components/MissionObjectives/MissionObjectives.jsx";
-import {MissionStages} from "@/components/MissionStages/MissionStages.jsx";
+} from "@/components/ui/tabs.jsx"
+import {MissionDetails} from "@/components/MissionPage/MissionDetails/MissionDetails.jsx";
+import MissionObjectives from "@/components/MissionPage/MissionObjectives/MissionObjectives.jsx";
+import MissionStages from "@/components/MissionPage/MissionStages/MissionStages.jsx";
 
 export function MissionTabs() {
   return (

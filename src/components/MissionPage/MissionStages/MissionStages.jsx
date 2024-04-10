@@ -1,13 +1,12 @@
 import { DataTable } from "./DataTable.jsx";
 import { ArrowUpDown} from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button.jsx"
 import {useMissions} from "@/hooks/useMissions.js";
 import {MissionDropdownMenu} from "@/components/ui/MissionDropdownMenu/MissionDropdownMenu.jsx";
 
 
 export default function MissionTable() {
-    const { missions } = useMissions()
-  const { data, isLoading, error} = missions
+
 
   const columns = [
     {
@@ -35,12 +34,12 @@ export default function MissionTable() {
     },
   ]
 
-  if (isLoading) return "Loading...";
-  if (error) return `An error has occurred: ${error}`;
+  // if (isLoading) return "Loading...";
+  // if (error) return `An error has occurred: ${error}`;
 
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={data || []} />
+      <DataTable columns={columns} data={[]} />
     </div>
   );
 }
