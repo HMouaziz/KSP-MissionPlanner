@@ -10,12 +10,18 @@ const missionService = {
   postMission: async (missionData) => {
     return await apiService.post(`/missions/`, missionData);
   },
-  putMission: async (id, missionData) => {
-    return await apiService.put(`/missions/${id}`, missionData);
+  putMission: async (missionData) => {
+    return await apiService.put(`/missions/${missionData.id}`, missionData.missionData);
   },
   deleteMission: async (id) => {
     return await apiService.delete(`/missions/${id}`);
   },
+  getObjectives: async (id) => {
+    return await apiService.get(`/missions/${id}/objectives`)
+  },
+  getStages: async (id) => {
+    return await apiService.get(`/missions/${id}/stages`)
+  }
 };
 
 export default missionService;

@@ -8,7 +8,7 @@ import {MissionDetails} from "@/components/MissionPage/MissionDetails/MissionDet
 import MissionObjectives from "@/components/MissionPage/MissionObjectives/MissionObjectives.jsx";
 import MissionStages from "@/components/MissionPage/MissionStages/MissionStages.jsx";
 
-export function MissionTabs() {
+export function MissionTabs( {mission} ) {
   return (
     <Tabs defaultValue="details" className="w-full flex flex-col items-center ">
       <TabsList className="grid w-[80%] grid-cols-3">
@@ -17,7 +17,7 @@ export function MissionTabs() {
         <TabsTrigger value="stages">Stages</TabsTrigger>
       </TabsList>
       <TabsContent value="details" className='w-full flex flex-col items-center'>
-        <MissionDetails />
+        <MissionDetails mission={mission} />
       </TabsContent>
       <TabsContent value="objectives" className='w-full flex flex-col items-center'>
         <MissionObjectives />

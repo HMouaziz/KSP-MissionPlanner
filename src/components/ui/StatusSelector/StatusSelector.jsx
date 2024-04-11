@@ -8,8 +8,11 @@ import {
 } from "@/components/ui/select.jsx";
 import {useState} from "react";
 
-export const StatusSelector = ({status}) => {
-  const [currentStatus, setCurrentStatus] = useState(status);
+export const StatusSelector = ({ mission }) => {
+  const [currentStatus, setCurrentStatus] = useState(() => {
+    return mission ? mission.status : "planned";
+  });
+
 
   const formattedStatus = currentStatus.replace(/_/g, " ").replace(/(^\w|\s\w)/g, (m) =>
     m.toUpperCase(),
@@ -17,6 +20,8 @@ export const StatusSelector = ({status}) => {
   const handleSelectChange = (value) => {
     setCurrentStatus(value);
   };
+
+  if(!mission) return "Loading..."
 
   return (
     <div className='flex flex-row items-center justify-evenly gap-4 '>

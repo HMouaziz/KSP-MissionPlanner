@@ -1,20 +1,18 @@
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea.jsx";
 
-export const MissionDetails = () => {
-  const description = 'Sample Description Data';
-  const [value, setValue] = useState(description);
+export const MissionDetails = ({mission}) => {
+  const [value, setValue] = useState(mission.description);
   const [isEditing, setEditing] = useState(false);
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       setEditing(false);
     } else if (event.key === 'Escape') {
-      setValue(description);
+      setValue(mission.description);
       setEditing(false);
     }
   };
-
   const handleBlur = () => {
     setEditing(false);
   };

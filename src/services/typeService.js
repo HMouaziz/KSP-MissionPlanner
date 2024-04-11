@@ -4,8 +4,8 @@ const typeService = {
   getAllTypes: async () => {
     return await apiService.get("/types");
   },
-  getTypes: async (mission_id) => {
-    return await apiService.get(`/types/${mission_id}`); //move to missions
+  getTypes: async (id) => {
+    return await apiService.get(`/types/${id}`);
   },
   postType: async (typeData) => {
     return await apiService.post(`/types/`, typeData);
