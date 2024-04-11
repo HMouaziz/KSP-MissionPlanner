@@ -12,7 +12,6 @@ import { useMissions } from "@/hooks/useMissions.js";
 export const PrioritySelector = ({ mission }) => {
   const { updateMission } = useMissions();
 
-  const { id } = mission;
   const { priority } = mission;
 
   const high = <ChevronUp className="text-rose-800"> High </ChevronUp>;
@@ -35,7 +34,7 @@ export const PrioritySelector = ({ mission }) => {
   }
 
   const handlePriorityChange = (newPriority) => {
-    updateMission({ id: id, missionData: { ...mission, priority: newPriority } });
+    updateMission( { ...mission, priority: newPriority } );
   };
   if (!mission) return "Loading...";
   return (

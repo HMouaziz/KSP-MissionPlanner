@@ -11,7 +11,7 @@ const missionService = {
     return await apiService.post(`/missions/`, missionData);
   },
   putMission: async (missionData) => {
-    return await apiService.put(`/missions/${missionData.id}`, missionData.missionData);
+    return await apiService.put(`/missions/${missionData.id}`, missionData);
   },
   deleteMission: async (id) => {
     return await apiService.delete(`/missions/${id}`);

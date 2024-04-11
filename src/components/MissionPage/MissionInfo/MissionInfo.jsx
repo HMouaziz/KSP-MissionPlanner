@@ -8,6 +8,7 @@ import { StatusSelector } from "@/components/ui/StatusSelector/StatusSelector.js
 import { TypeComboBox } from "@/components/ui/TypeComboBox/TypeComboBox.jsx";
 import { BudgetInput } from "@/components/ui/BudgetInput/BudgetInput.jsx";
 import { DateRangePicker } from "@/components/ui/DateRangePicker/DateRangePicker.jsx";
+import {MissionTitle} from "@/components/MissionPage/MissionTitle/MissionTitle.jsx";
 
 export const MissionInfo = ({ mission }) => {
 
@@ -15,7 +16,7 @@ export const MissionInfo = ({ mission }) => {
   return (
     <Card className="border-none shadow-none w-[80%]">
       <CardHeader>
-        <CardTitle>{mission.name}</CardTitle>
+        <CardTitle>{<MissionTitle mission={mission}/>}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <div className="flex flex-row items-center justify-evenly ">
