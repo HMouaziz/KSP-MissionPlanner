@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { MoreHorizontal } from "lucide-react";
-import { DeleteModal } from "@/components/DeleteModal/DeleteModal.jsx";
+import { DeleteMissionModal } from "@/components/DeleteModal/DeleteMissionModal.jsx";
 import {useNavigate} from "react-router-dom";
 
 export const MissionDropdownMenu = ({ id }) => {
@@ -29,12 +29,12 @@ export const MissionDropdownMenu = ({ id }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem>
-            <Button variant="ghost" onClick={handleNavigate}>View Mission</Button>
+          <DropdownMenuItem onClick={handleNavigate}>
+             View Mission
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <DeleteModal id={id} />
+            <DeleteMissionModal id={id} />
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

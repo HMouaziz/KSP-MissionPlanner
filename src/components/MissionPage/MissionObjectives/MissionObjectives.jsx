@@ -1,43 +1,40 @@
 import { DataTable } from "./DataTable.jsx";
-import { ArrowUpDown} from "lucide-react"
-import { Button } from "@/components/ui/button.jsx"
-import {MissionDropdownMenu} from "@/components/ui/MissionDropdownMenu/MissionDropdownMenu.jsx";
-
+import { useParams } from "react-router-dom";
+import { DeleteObjectiveModal } from "@/components/DeleteModal/DeleteObjectiveModal.jsx";
+import { useObjective } from "@/hooks/useObjective.js";
+import {TypeSelector} from "@/components/MissionPage/MissionObjectives/TypeSelector.jsx";
 
 export default function MissionObjectives() {
+  const { id } = useParams();
+  const objectives = useObjective(id);
+  const { data: objectiveList } = objectives;
 
   const columns = [
     {
-      accessorKey: "name",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Name
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        )
+      accessorKey: "type",
+      header: "Type",
+      cell: ({ row }) => {
+        console.log(row.original)
+        return <TypeSelector objective={row.original}/>
       },
     },
     {
-      id: "actions",
+      accessorKey: "data",
+      header: "Data",
+    },
+    {
+      id: "delete",
       cell: ({ row }) => {
-        const id = row.original.id
-        return (
-          <MissionDropdownMenu id={id} />
-        )
+        const id = row.original.id;
+        return <DeleteObjectiveModal id={id} />;
       },
     },
-  ]
+  ];
 
-  // if (isLoading) return "Loading...";
-  // if (error) return `An error has occurred: ${error}`;
-
+  if (!objectiveList) return "Loading...";
   return (
     <div className="container mx-auto py-10">
-      <DataTable columns={columns} data={[]} />
+      <DataTable columns={columns} data={objectiveList} />
     </div>
   );
 }

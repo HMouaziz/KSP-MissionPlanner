@@ -1,11 +1,5 @@
-import {useQuery} from "@tanstack/react-query";
-import missionService from "@/services/missionService.js";
+import {useContext} from "react";
+import {ObjectivesContext} from "@/context/ObjectiveContext.jsx";
 
-export const useObjectives = (id) => {
-  return useQuery({
-    queryKey: ["objectives", id],
-    queryFn: missionService.getObjectives,
-    enabled: !!id,
-  })
-};
+export const useObjectives = () => useContext(ObjectivesContext);
 

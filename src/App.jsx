@@ -6,6 +6,7 @@ import {MissionPage} from "@/pages/MissionPage/MissionPage.jsx";
 import {MissionsPage} from "@/pages/MissionsPage/MissionsPage.jsx";
 import {Layout} from "@/components/Layout/Layout.jsx";
 import {TypesProvider} from "@/context/TypeContext.jsx";
+import {ObjectivesProvider} from "@/context/ObjectiveContext.jsx";
 
 const queryClient = new QueryClient();
 
@@ -14,15 +15,17 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TypesProvider>
         <MissionsProvider>
-          <Layout>
-            <BrowserRouter>
-              <Routes>
-                <Route path='/' element={<MissionPage />}></Route>
-                <Route path="/missions" element={<MissionsPage />}></Route>
-                <Route path="/missions/:id" element={<MissionPage />}></Route>
-              </Routes>
-            </BrowserRouter>
-          </Layout>
+          <ObjectivesProvider>
+            <Layout>
+              <BrowserRouter>
+                <Routes>
+                  <Route path='/' element={<MissionPage />}></Route>
+                  <Route path="/missions" element={<MissionsPage />}></Route>
+                  <Route path="/missions/:id" element={<MissionPage />}></Route>
+                </Routes>
+              </BrowserRouter>
+            </Layout>
+          </ObjectivesProvider>
         </MissionsProvider>
       </TypesProvider>
       <ReactQueryDevtools />

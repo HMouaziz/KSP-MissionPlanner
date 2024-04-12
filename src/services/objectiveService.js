@@ -2,19 +2,19 @@ import apiService from "./apiService";
 
 const objectiveService = {
   getAllObjectives: async () => {
-    return await apiService.get("/objectives");
+    return await apiService.get("/missions/objectives");
   },
   getObjectives: async (id) => {
-    return await apiService.get(`/objectives/${id}`);
+    return await apiService.get(`/missions/objectives/${id}`);
   },
-  postObjectives: async (objectiveData) => {
-    return await apiService.post(`/objectives/`, objectiveData);
+  postObjective: async (objectiveData) => {
+    return await apiService.post(`/missions/objectives/`, objectiveData);
   },
-  putObjectives: async (id, objectiveData) => {
-    return await apiService.put(`/objectives/${id}`, objectiveData);
+  putObjective: async (objectiveData) => {
+    return await apiService.put(`/missions/objectives/${objectiveData.id}`, objectiveData);
   },
-  deleteObjectives: async (id) => {
-    return await apiService.delete(`/objectives/${id}`);
+  deleteObjective: async (id) => {
+    return await apiService.delete(`/missions/objectives/${id}`);
   },
 };
 

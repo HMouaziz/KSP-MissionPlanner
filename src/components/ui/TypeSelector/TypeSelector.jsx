@@ -25,7 +25,7 @@ export const TypeSelector = ({ mission }) => {
     setCurrentTypeId(newTypeId);
   };
 
-  if (!mission || !types) return "Loading...";
+  if (!mission || !typeList) return "Loading...";
 
   const currentType = typeList.find(type => type.id === currentTypeId);
 

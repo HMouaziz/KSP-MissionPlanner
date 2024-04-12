@@ -9,7 +9,7 @@ import {
 import {Button} from "@/components/ui/button.jsx";
 import {useMissions} from "@/hooks/useMissions.js";
 
-export const DeleteModal = ({ id }) => {
+export const DeleteMissionModal = ({ id }) => {
   const { deleteMission } = useMissions()
 
   const handleDelete = () => {
