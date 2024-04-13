@@ -14,8 +14,7 @@ import {
   UserPlus,
   Users,
 } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
+import avatar from '../../../public/favicon.svg'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,12 +29,13 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {Avatar} from "@/components/ui/avatar.jsx";
 
 export function UserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">Open</Button>
+        <Avatar className='p-1.5 cursor-pointer'><img src={avatar} alt="U"/></Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>

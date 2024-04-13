@@ -14,7 +14,6 @@ export default function MissionObjectives() {
       accessorKey: "type",
       header: "Type",
       cell: ({ row }) => {
-        console.log(row.original)
         return <TypeSelector objective={row.original}/>
       },
     },

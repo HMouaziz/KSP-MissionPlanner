@@ -1,14 +1,10 @@
-import {Navbar} from "@/components/Navbar/Navbar.jsx";
-import {Sidebar} from "@/components/Sidebar/Sidebar.jsx";
+import { Navbar } from "@/components/Navbar/Navbar.jsx";
 
 export const Layout = ({ children }) => {
   return (
     <div>
       <Navbar />
-      <Sidebar />
-      <main>
-        {children}
-      </main>
+      <main>{children}</main>
     </div>
   );
 };
