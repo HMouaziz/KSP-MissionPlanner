@@ -1,20 +1,22 @@
-import avatar from '../../assets/images/avatar.png'
-import {Button} from "@/components/ui/button.jsx";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar.jsx";
+import {
+  NavigationMenu,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu"
+import {Logo} from "@/components/Navbar/Logo.jsx";
+import {FeaturesMenu} from "@/components/Navbar/FeaturesMenu.jsx";
+import {ToolsMenu} from "@/components/Navbar/ToolsMenu.jsx";
+import {UserDropdown} from "@/components/Navbar/UserDropdown.jsx";
+import {NavTest} from "@/components/Navbar/NavTest.jsx";
 
 export const Navbar = () => {
   return (
-    <header className="flex justify-end items-center px-4 py-6 bg-gray-700 shadow">
-
-      <nav className=" space-x-4 flex flex-row ">
-        <Button className="shadow bg-gray-700" variant="outline">
-          Nav menu
-        </Button>
-        <Avatar>
-          <AvatarImage src={avatar} />
-          <AvatarFallback>RO</AvatarFallback>
-        </Avatar>
-      </nav>
+    <header className="flex justify-between items-center px-4 py-0 bg-zinc-600 shadow">
+      <Logo />
+      <NavigationMenu as="header" className="bg-zinc-600 text-white flex justify-between items-center p-4">
+        <NavigationMenuList className="flex gap-4">
+          <NavTest />
+        </NavigationMenuList>
+      </NavigationMenu>
     </header>
   );
 };
