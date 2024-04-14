@@ -4,25 +4,25 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/ui/card.jsx";
 import { NavLink } from "react-router-dom";
-import {LoginForm} from "@/components/Forms/LoginForm/LoginForm.jsx";
+import {SignUpForm} from "@/components/Auth/SignUpForm/SignUpForm.jsx";
 
-export function LoginCard() {
+export function SignUpCard() {
   return (
     <Card className="mx-auto max-w-sm my-24">
       <CardHeader>
-        <CardTitle className="text-2xl">Login</CardTitle>
+        <CardTitle className="text-xl">Sign Up</CardTitle>
         <CardDescription>
-          Enter your email below to login to your account
+          Enter your information to create an account
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <LoginForm />
+        <SignUpForm />
         <div className="mt-4 text-center text-sm">
-          Don&apos;t have an account?{" "}
-          <NavLink to="/register" className="underline">
-            Sign up
+          Already have an account?{" "}
+          <NavLink to="/login" className="underline">
+            Sign in
           </NavLink>
         </div>
       </CardContent>

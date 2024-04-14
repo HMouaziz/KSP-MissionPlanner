@@ -1,4 +1,4 @@
-import {SignUpCard} from "@/components/Forms/SignUpForm/SignUpCard.jsx";
+import { SignUpCard } from "@/components/Auth/SignUpForm/SignUpCard.jsx";
 
 export const RegisterPage = () => {
   return (

@@ -1,6 +1,6 @@
 import {Badge} from "@/components/ui/badge.jsx";
-import {PrioritySelector} from "@/components/ui/PrioritySelector/PrioritySelector.jsx";
-import {TagComboBox} from "@/components/ui/TagComboBox/TagComboBox.jsx";
+import {PrioritySelector} from "@/components/Common/PrioritySelector.jsx";
+import {TagComboBox} from "@/components/Common/TagComboBox.jsx";
 export const MissionHeader = ( {mission} ) => {
 
   if(!mission) return "Loading..."

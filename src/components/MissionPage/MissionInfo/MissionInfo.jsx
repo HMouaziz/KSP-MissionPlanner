@@ -4,11 +4,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card.jsx";
-import { StatusSelector } from "@/components/ui/StatusSelector/StatusSelector.jsx";
-import { BudgetInput } from "@/components/ui/BudgetInput/BudgetInput.jsx";
-import { DateRangePicker } from "@/components/ui/DateRangePicker/DateRangePicker.jsx";
+import { StatusSelector } from "@/components/Common/StatusSelector.jsx";
+import { BudgetInput } from "@/components/Common/BudgetInput.jsx";
+import { DateRangePicker } from "@/components/Common/DateRangePicker.jsx";
 import {MissionTitle} from "@/components/MissionPage/MissionTitle/MissionTitle.jsx";
-import {TypeSelector} from "@/components/ui/TypeSelector/TypeSelector.jsx";
+import {TypeSelector} from "@/components/Common/TypeSelector.jsx";
 
 export const MissionInfo = ({ mission }) => {
   if (!mission) return "Loading...";

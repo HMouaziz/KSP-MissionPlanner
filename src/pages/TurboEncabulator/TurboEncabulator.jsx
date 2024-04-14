@@ -36,7 +36,11 @@ function TurboEncabulator() {
       </div>
       <div className="p-4">
         <Button>
-          <a href="https://en.wikipedia.org/wiki/Turbo_encabulator">
+          <a
+            href="https://en.wikipedia.org/wiki/Turbo_encabulator"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Learn More
           </a>
         </Button>
@@ -78,7 +82,8 @@ function TurboEncabulator() {
           kindly refrain from engaging with this material in any capacity beyond
           theoretical contemplation.
         </p>
-        © {new Date().getFullYear()} Mission Planner. All rights reserved.
+        © {new Date().getFullYear()} Mission Planner. Licensed under the GNU
+        General Public License v3.0.
       </footer>
     </div>
   );

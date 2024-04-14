@@ -14,7 +14,6 @@ import {
   TableRow,
 } from "@/components/ui/table.jsx";
 import { useState } from "react";
-import { AddTableRow } from "@/components/AddTableRow/AddTableRow.jsx";
 
 export function DataTable({ columns, data }) {
   const [sorting, setSorting] = useState([]);

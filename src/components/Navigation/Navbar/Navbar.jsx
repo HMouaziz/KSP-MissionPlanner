@@ -1,14 +1,14 @@
 import {
   NavigationMenu, NavigationMenuItem,
   NavigationMenuList,
-} from "@/components/ui/navigation-menu";
-import { Logo } from "@/components/Navbar/Logo.jsx";
-import { UserDropdown } from "@/components/Navbar/UserDropdown.jsx";
-import { SearchButton } from "@/components/Navbar/SearchButton.jsx";
+} from "@/components/ui/navigation-menu.jsx";
+import { Logo } from "@/components/Common/Logo.jsx";
+import { UserDropdown } from "@/components/Navigation/Navbar/UserDropdown.jsx";
+import { SearchButton } from "@/components/Common/SearchButton.jsx";
 import { useAuth } from "@/hooks/useAuth.js";
 import {Button} from "@/components/ui/button.jsx";
 import {ModeToggle} from "@/components/ModeToggle/ModeToggle.jsx";
-import {PublicNav} from "@/components/Navbar/PublicNav.jsx";
+import {PublicNav} from "@/components/Navigation/Navbar/PublicNav.jsx";
 import {NavLink} from "react-router-dom";
 
 export const Navbar = () => {
@@ -16,7 +16,7 @@ export const Navbar = () => {
 
   if (token) {
     return (
-      <header className="flex justify-between items-center px-4 py-0 shadow sticky">
+      <header className="bg-background flex justify-between items-center px-4 py-0 shadow sticky top-0">
         <Logo />
         <SearchButton />
         <NavigationMenu
@@ -32,7 +32,7 @@ export const Navbar = () => {
     );
   } else {
     return (
-      <header className="flex justify-between items-center px-4 py-2 shadow sticky">
+      <header className="bg-background flex justify-between items-center px-4 py-2 shadow sticky top-0">
         <NavigationMenu as="header">
           <NavigationMenuList className="flex gap-3">
             <NavigationMenuItem>

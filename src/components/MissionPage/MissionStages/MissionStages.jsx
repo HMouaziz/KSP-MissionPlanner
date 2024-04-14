@@ -1,8 +1,7 @@
 import { DataTable } from "./DataTable.jsx";
 import { ArrowUpDown} from "lucide-react"
 import { Button } from "@/components/ui/button.jsx"
-import {useMissions} from "@/hooks/useMissions.js";
-import {MissionDropdownMenu} from "@/components/ui/MissionDropdownMenu/MissionDropdownMenu.jsx";
+import {MissionDropdownMenu} from "@/components/Common/MissionDropdownMenu.jsx";
 
 
 export default function MissionTable() {

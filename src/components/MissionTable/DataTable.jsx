@@ -16,7 +16,7 @@ import {
 import { useState } from "react";
 
 import { Input } from "@/components/ui/input.jsx";
-import {AddTableRow} from "@/components/AddTableRow/AddTableRow.jsx";
+import {AddTableRow} from "@/components/MissionTable/AddTableRow.jsx";
 
 export function DataTable({ columns, data }) {
   const [sorting, setSorting] = useState([]);
