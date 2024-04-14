@@ -24,7 +24,7 @@ const formSchema = z.object({
 });
 
 export const LoginForm = () => {
-  const { login } = useAuth()
+  const { setToken } = useAuth();
   const navigate = useNavigate();
 
   const form = useForm({
@@ -35,10 +35,9 @@ export const LoginForm = () => {
     },
   });
 
-  function onSubmit(values) {
-    login()
-    console.log(values);
-    navigate('/');
+  function onSubmit() {
+    setToken("this is a test token");
+    navigate("/", { replace: true });
   }
 
   return (

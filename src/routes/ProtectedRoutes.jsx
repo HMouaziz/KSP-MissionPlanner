@@ -1,13 +1,12 @@
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, Outlet } from "react-router-dom";
 import {useAuth} from "@/hooks/useAuth.js";
 
-export const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = useAuth()
-  const location = useLocation();
+export const ProtectedRoute = () => {
+  const { token } = useAuth();
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace state={{ from: location }} />;
+  if (!token) {
+    return <Navigate to="/login" />;
   }
 
-  return children;
+  return <Outlet />;
 };

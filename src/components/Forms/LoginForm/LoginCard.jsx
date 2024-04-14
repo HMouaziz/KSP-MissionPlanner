@@ -18,7 +18,7 @@ export function LoginCard() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <LoginForm/>
+        <LoginForm />
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
           <NavLink to="/register" className="underline">
