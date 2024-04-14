@@ -70,7 +70,7 @@ export function TypeComboBox( {mission} ) {
   );
 }
 
-function StatusList({ setOpen, setSelectedStatus, handleTypeChange }) {
+function StatusList({ handleTypeChange }) {
   const { types } = useTypes();
   const { data } = types;
   const typeList = data.map(type => ({value: type.id, label: type.name}));
