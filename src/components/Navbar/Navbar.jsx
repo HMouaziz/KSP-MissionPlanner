@@ -16,7 +16,7 @@ export const Navbar = () => {
 
   if (isAuthenticated) {
     return (
-      <header className="flex justify-between items-center px-4 py-0 shadow">
+      <header className="flex justify-between items-center px-4 py-0 shadow sticky">
         <Logo />
         <SearchButton />
         <NavigationMenu
@@ -32,7 +32,7 @@ export const Navbar = () => {
     );
   } else {
     return (
-      <header className="flex justify-between items-center px-4 py-2 shadow">
+      <header className="flex justify-between items-center px-4 py-2 shadow sticky">
         <NavigationMenu as="header">
           <NavigationMenuList className="flex gap-3">
             <NavigationMenuItem>

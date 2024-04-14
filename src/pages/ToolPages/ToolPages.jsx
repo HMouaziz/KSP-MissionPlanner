@@ -1,3 +1,5 @@
+import TurboEncabulator from "@/pages/TurboEncabulator/TurboEncabulator.jsx";
+
 export const ToolPages = () => {
-  return <>hello you are a total tool</>;
+  return <TurboEncabulator />;
 };
