@@ -9,6 +9,7 @@ import { useAuth } from "@/hooks/useAuth.js";
 import {Button} from "@/components/ui/button.jsx";
 import {ModeToggle} from "@/components/ModeToggle/ModeToggle.jsx";
 import {PublicNav} from "@/components/Navbar/PublicNav.jsx";
+import {NavLink} from "react-router-dom";
 
 export const Navbar = () => {
   const { isAuthenticated } = useAuth();
@@ -52,12 +53,12 @@ export const Navbar = () => {
           <NavigationMenuList>
             <NavigationMenuItem>
               <Button variant="primary">
-                Sign Up
+                <NavLink to='/register'>Sign Up</NavLink>
               </Button>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <Button variant="primary" className='text-amber-500'>
-                Login
+                <NavLink to='/login'>Login</NavLink>
               </Button>
             </NavigationMenuItem>
             <NavigationMenuItem>
