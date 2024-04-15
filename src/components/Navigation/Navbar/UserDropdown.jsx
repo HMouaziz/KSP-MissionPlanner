@@ -36,9 +36,9 @@ export const UserDropdown = () => {
 
   const handleProfile = () => navigate("/profile")
 
-  const handleSettings = () => navigate("/settings")
+  const handleSettings = () => navigate("/settings/general")
 
-  const handleShortcuts = () => {}
+  const handleShortcuts = () => navigate("/settings/shortcuts")
 
   const handleMissions = () => navigate("/missions")
 
