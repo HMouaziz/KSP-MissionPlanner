@@ -76,7 +76,7 @@ const Routes = () => {
           ),
         },
         {
-          path: "/settings",
+          path: "/settings/*",
           element: (
             <Layout>
               <SettingsPage />
