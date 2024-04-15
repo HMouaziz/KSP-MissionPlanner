@@ -60,7 +60,7 @@ function TurboEncabulator() {
         <p className="text-sm text-gray-500 italic my-8">
           Please be advised that any attempt to construct, simulate, or
           otherwise manifest a practical application of the principles described
-          herein without the express quantum oversight of certified pan-galactic
+          herein without the express quantum oversight of certified Rockwell
           engineers will result in immediate revocation of your thermoplastic
           intermodulation credentials and a compulsory attendance at the next
           scheduled seminar on orbital class discombobulation dynamics.

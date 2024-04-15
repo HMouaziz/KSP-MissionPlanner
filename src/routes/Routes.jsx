@@ -1,6 +1,6 @@
 import { useAuth } from "@/hooks/useAuth.js";
 import { Layout } from "@/components/Layout/Layout.jsx";
-import { ToolPages } from "@/pages/ToolPages/ToolPages.jsx";
+import { ToolsPage } from "@/pages/ToolPages/ToolsPage.jsx";
 import { ProtectedRoute } from "@/routes/ProtectedRoutes.jsx";
 import { HomePage } from "@/pages/HomePage/HomePage.jsx";
 import { MissionsPage } from "@/pages/MissionsPage/MissionsPage.jsx";
@@ -9,6 +9,11 @@ import { LandingPage } from "@/pages/LandingPage/LandingPage.jsx";
 import { RegisterPage } from "@/pages/RegisterPage/RegisterPage.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { LoginPage } from "@/pages/LoginPage/LoginPage.jsx";
+import NotFoundPage from "@/pages/NotFoundPage/NotFoundPage.jsx";
+import {EclipseTimePage} from "@/pages/ToolPages/EclipseTimePage.jsx";
+import {ResonantOrbitPage} from "@/pages/ToolPages/ResonantOrbitPage.jsx";
+import {ProfilePage} from "@/pages/UserPages/ProfilePage.jsx";
+import {SettingsPage} from "@/pages/UserPages/SettingsPage.jsx";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -18,9 +23,34 @@ const Routes = () => {
       path: "/tools",
       element: (
         <Layout>
-          <ToolPages />
+          <ToolsPage />
         </Layout>
       ),
+    },
+    {
+      path: "/tools/eclipse-time-calculator",
+      element: (
+        <Layout>
+          <EclipseTimePage />
+        </Layout>
+      ),
+    },
+    {
+      path: "/tools/resonant-orbit-calculator",
+      element: (
+        <Layout>
+          <ResonantOrbitPage />
+        </Layout>
+      ),
+    },
+    {
+      path: "/*",
+      element: (
+        <Layout>
+          <NotFoundPage />
+        </Layout>
+      ),
+
     },
   ];
 
@@ -34,6 +64,22 @@ const Routes = () => {
           element: (
             <Layout>
               <HomePage />
+            </Layout>
+          ),
+        },
+        {
+          path: "/profile",
+          element: (
+            <Layout>
+              <ProfilePage />
+            </Layout>
+          ),
+        },
+        {
+          path: "/settings",
+          element: (
+            <Layout>
+              <SettingsPage />
             </Layout>
           ),
         },
