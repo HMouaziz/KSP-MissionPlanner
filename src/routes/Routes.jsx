@@ -15,6 +15,8 @@ import {ResonantOrbitPage} from "@/pages/ToolPages/ResonantOrbitPage.jsx";
 import {ProfilePage} from "@/pages/UserPages/ProfilePage.jsx";
 import {SettingsPage} from "@/pages/UserPages/SettingsPage.jsx";
 import TurboEncabulator from "@/pages/TurboEncabulator/TurboEncabulator.jsx";
+import {DeltaVPage} from "@/pages/ToolPages/DeltaVPage.jsx";
+import {InterplanetaryTrajectoryPage} from "@/pages/ToolPages/InterplanetaryTrajectoryPage.jsx";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -29,7 +31,7 @@ const Routes = () => {
       ),
     },
     {
-      path: "/tools/test",
+      path: "/easter",
       element: (
         <Layout>
           <TurboEncabulator />
@@ -49,6 +51,22 @@ const Routes = () => {
       element: (
         <Layout>
           <ResonantOrbitPage />
+        </Layout>
+      ),
+    },
+    {
+      path: "/tools/deltaV-route-planner",
+      element: (
+        <Layout>
+          <DeltaVPage />
+        </Layout>
+      ),
+    },
+    {
+      path: "/tools/interplanetary-trajectory-planner",
+      element: (
+        <Layout>
+          <InterplanetaryTrajectoryPage />
         </Layout>
       ),
     },
