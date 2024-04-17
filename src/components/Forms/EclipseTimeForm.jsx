@@ -38,7 +38,6 @@ export const EclipseTimeForm = () => {
   async function onSubmit(data) {
     const selectedBody = bodies.find(body => body.name === data.body);
     const bodyId = selectedBody ? selectedBody.id : null;
-    console.log(`Selected celestial body ID: ${bodyId}`);
     const response = await eclipseService.calculate({ ...data, body: bodyId })
     console.log(response);
   }

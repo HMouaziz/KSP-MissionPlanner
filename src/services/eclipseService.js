@@ -7,7 +7,7 @@ const eclipseService = {
   calculate: async (data) => {
     return await apiService.post("/eclipse/calculate", data);
   },
-}
+};
 
 export {eclipseService};
 
