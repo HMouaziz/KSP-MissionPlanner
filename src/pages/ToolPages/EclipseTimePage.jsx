@@ -3,7 +3,7 @@ import {EclipseTimeForm} from "@/components/Forms/EclipseTimeForm.jsx";
 import {useState} from "react";
 
 export const EclipseTimePage = () => {
-  const [formattedTime, setFormattedTime] = useState('Calculating...');
+  const [formattedTime, setFormattedTime] = useState('Fill the form above to calculate.');
 
   const handleTimeCalculated = (time) => {
     setFormattedTime(time);

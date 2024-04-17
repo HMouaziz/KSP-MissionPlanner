@@ -17,6 +17,8 @@ import {SettingsPage} from "@/pages/UserPages/SettingsPage.jsx";
 import TurboEncabulator from "@/pages/TurboEncabulator/TurboEncabulator.jsx";
 import {DeltaVPage} from "@/pages/ToolPages/DeltaVPage.jsx";
 import {InterplanetaryTrajectoryPage} from "@/pages/ToolPages/InterplanetaryTrajectoryPage.jsx";
+import {LaunchPage} from "@/pages/LaunchPage/LaunchPage.jsx";
+import {CraftPage} from "@/pages/CraftPage/CraftPage.jsx";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -136,6 +138,22 @@ const Routes = () => {
       element: (
         <Layout>
           <LandingPage />
+        </Layout>
+      ),
+    },
+    {
+      path: "/launch",
+      element: (
+        <Layout>
+          <LaunchPage />
+        </Layout>
+      ),
+    },
+    {
+      path: "/crafts",
+      element: (
+        <Layout>
+          <CraftPage />
         </Layout>
       ),
     },
