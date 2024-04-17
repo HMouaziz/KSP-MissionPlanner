@@ -19,7 +19,7 @@ export const LandingPage = () => {
         </button>
       </div>
 
-      <div className="mx-32 my-16">
+      <div className="mx-96 my-6">
         <img
           src={image}
           alt="App Screenshot"

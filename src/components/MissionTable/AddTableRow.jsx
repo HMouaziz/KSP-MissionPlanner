@@ -23,10 +23,11 @@ export const AddTableRow = () => {
   const handleSave = () => {
     const missionData = {
       name: inputRef.current.value,
-      description: '',
+      description: null,
       budget: null,
-      start_date: null,
-      launch_date: null,
+      status: 'planned',
+      priority: 'normal',
+      typeId: 1
     }
     addMission(missionData)
     switchMode()

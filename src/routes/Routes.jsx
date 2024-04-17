@@ -14,6 +14,7 @@ import {EclipseTimePage} from "@/pages/ToolPages/EclipseTimePage.jsx";
 import {ResonantOrbitPage} from "@/pages/ToolPages/ResonantOrbitPage.jsx";
 import {ProfilePage} from "@/pages/UserPages/ProfilePage.jsx";
 import {SettingsPage} from "@/pages/UserPages/SettingsPage.jsx";
+import TurboEncabulator from "@/pages/TurboEncabulator/TurboEncabulator.jsx";
 
 const Routes = () => {
   const { token } = useAuth();
@@ -24,6 +25,14 @@ const Routes = () => {
       element: (
         <Layout>
           <ToolsPage />
+        </Layout>
+      ),
+    },
+    {
+      path: "/tools/test",
+      element: (
+        <Layout>
+          <TurboEncabulator />
         </Layout>
       ),
     },

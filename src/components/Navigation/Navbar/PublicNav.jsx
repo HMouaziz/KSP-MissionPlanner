@@ -28,7 +28,7 @@ const tools = [
   },
   {
     title: "Interplanetary Trajectory Calculator",
-    href: "/tools",
+    href: "/tools/test",
     description:
       "Design complex space missions with multi-gravity assist routes to navigate through the solar system efficiently.",
   },
