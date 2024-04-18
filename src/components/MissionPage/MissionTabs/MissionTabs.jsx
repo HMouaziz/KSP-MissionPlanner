@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/tabs.jsx"
 import {MissionDetails} from "@/components/MissionPage/MissionDetails/MissionDetails.jsx";
 import MissionObjectives from "@/components/MissionPage/MissionObjectives/MissionObjectives.jsx";
-import MissionStages from "@/components/MissionPage/MissionStages/MissionStages.jsx";
+import ComingSoonSmall from "@/components/Common/ComingSoonSmall.jsx";
 
 export function MissionTabs( {mission} ) {
   return (
@@ -23,7 +23,7 @@ export function MissionTabs( {mission} ) {
         <MissionObjectives />
       </TabsContent>
       <TabsContent value="stages" className='w-full flex flex-col items-center'>
-        <MissionStages />
+        <ComingSoonSmall targetDate='2024-05-19T00:00:00'/>
       </TabsContent>
     </Tabs>
   )

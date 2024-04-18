@@ -3,7 +3,7 @@ import comingSoon from "@/assets/images/coming-soon.png";
 
 const padNumber = (num) => String(num).padStart(2, "0");
 
-const ComingSoon = ({ targetDate }) => {
+const ComingSoonSmall = ({ targetDate }) => {
   const calculateTimeLeft = useCallback(() => {
     const difference = +new Date(targetDate) - +new Date();
     let timeLeft = {};
@@ -33,7 +33,7 @@ const ComingSoon = ({ targetDate }) => {
   return (
     <div className="flex flex-col items-center justify-center p-4 w-[50%]">
       <img src={comingSoon} alt="Coming Soon" className="w-[50%]" />
-      <div className="text-gray-700 text-5xl p-6">
+      <div className="text-gray-700 text-xl p-6">
         <span>{padNumber(timeLeft.days)}:</span>
         <span>{padNumber(timeLeft.hours)}:</span>
         <span>{padNumber(timeLeft.minutes)}:</span>
@@ -43,4 +43,4 @@ const ComingSoon = ({ targetDate }) => {
   );
 };
 
-export default ComingSoon;
+export default ComingSoonSmall;
