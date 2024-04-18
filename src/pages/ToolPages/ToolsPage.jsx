@@ -5,8 +5,8 @@ import {NavLink} from "react-router-dom";
 
 export const ToolsPage = () => {
   return (
-    <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-    <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-2">
+    <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-16">
+    <div className="grid gap-8 md:grid-cols-2 md:gap-16 lg:grid-cols-2">
       <Card x-chunk="dashboard-01-chunk-0">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Eclipse Time Calculator</CardTitle>
@@ -28,7 +28,7 @@ export const ToolsPage = () => {
           Quickly compute and optimize resonant orbital parameters for satellite deployments and celestial alignments.
         </CardContent>
         <CardFooter className='flex justify-center '>
-          <Button className='bg-amber-500'> Calculate </Button>
+          <NavLink to='/tools/resonant-orbit-calculator'><Button className='bg-amber-500 hover:bg-destructive'> Coming Soon! </Button></NavLink>
         </CardFooter>
       </Card>
       <Card x-chunk="dashboard-01-chunk-2">
@@ -40,7 +40,7 @@ export const ToolsPage = () => {
           Efficiently calculate propulsion requirements for any space journey, customizable with detailed orbital and transfer paths.
         </CardContent>
         <CardFooter className='flex justify-center '>
-          <Button className='bg-amber-500'> Calculate </Button>
+          <NavLink to='/tools/deltaV-route-planner'><Button className='bg-amber-500 hover:bg-destructive'> Coming Soon! </Button></NavLink>
         </CardFooter>
       </Card>
       <Card x-chunk="dashboard-01-chunk-3">
@@ -52,7 +52,7 @@ export const ToolsPage = () => {
           Design complex space missions with multi-gravity assist routes to navigate through the solar system efficiently.
         </CardContent>
         <CardFooter className='flex justify-center '>
-          <Button className='bg-amber-500'> Calculate </Button>
+          <NavLink to='/tools/interplanetary-trajectory-planner'><Button className='bg-amber-500 hover:bg-destructive'> Coming Soon! </Button></NavLink>
         </CardFooter>
       </Card>
     </div>

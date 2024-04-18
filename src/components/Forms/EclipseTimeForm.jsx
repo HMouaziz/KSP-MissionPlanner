@@ -72,7 +72,7 @@ export const EclipseTimeForm = ( {onTimeCalculated} ) => {
           name="body"
           render={({field}) => (
             <FormItem>
-              <FormLabel>Eclipse Time Calculator</FormLabel>
+              <FormLabel>Celestial Body</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -113,7 +113,7 @@ export const EclipseTimeForm = ( {onTimeCalculated} ) => {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className='bg-amber-500'>Submit</Button>
       </form>
     </Form>
   );
