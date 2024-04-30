@@ -2,7 +2,7 @@ import * as THREE from "three";
 
 
 class CelestialObject {
-    constructor(data, scaleD = 1e-9, scaleS = 1e-6) {
+    constructor(data, scaleD = 1e-9, scaleS = 1e-7) {
         if (!data || typeof data.id === 'undefined') {
             console.error('Attempted to create CelestialObject with invalid data:', data);
             throw new Error('Invalid data provided to CelestialObject constructor');
