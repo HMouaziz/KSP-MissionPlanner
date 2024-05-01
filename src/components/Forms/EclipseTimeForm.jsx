@@ -1,8 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-import { Button } from "@/components/ui/button";
+import { debounce } from "lodash";
 import { Input } from "@/components/ui/input"; // Imported Input component
 import {
   Form,
@@ -20,13 +19,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { getCelestialValues } from "@/utils/getCelestialValues.js";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Slider } from "@/components/ui/slider.jsx";
+
+const numericString = z.string().refine((val) => !isNaN(val) && /^\d*\.?\d+$/.test(val), {
+  message: "Must be a valid number",
+});
 
 const FormSchema = z.object({
   body: z.string(),
-  apoapsis: z.string().transform((val) => Number(val)),
-  periapsis: z.string().transform((val) => Number(val)),
+  apoapsis: numericString.transform((val) => Number(val)),
+  periapsis: numericString.transform((val) => Number(val)),
   inclination: z.number(),
 });
 
@@ -36,11 +39,13 @@ export const EclipseTimeForm = ({ onSubmit }) => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       body: "",
-      apoapsis: "",
-      periapsis: "",
+      apoapsis: '0',
+      periapsis: '0',
       inclination: 0,
     },
   });
+
+  const { control, handleSubmit, watch } = form;
 
   useEffect(() => {
     async function fetchData() {
@@ -54,13 +59,25 @@ export const EclipseTimeForm = ({ onSubmit }) => {
     fetchData();
   }, []);
 
-  const handleSubmit = async (data) => {
-    const { body, ...rest } = data;
-    const selectedBody = bodies.find((b) => b.name === body);
-    const bodyId = selectedBody ? selectedBody.id : null;
+  const processSubmit = useCallback(
+    debounce(async (data) => {
+      const { body, ...rest } = data;
+      const selectedBody = bodies.find((b) => b.name === body);
+      const bodyId = selectedBody ? selectedBody.id : null;
+      onSubmit({ ...rest, bodyId });
+    }, 1000),
+    [bodies, onSubmit],
+  );
 
-    onSubmit({ ...rest, bodyId });
-  };
+  useEffect(() => {
+    const subscription = watch((value, { name, type }) => {
+      if (type !== "change" && type !== "blur") {
+        return;
+      }
+      handleSubmit(processSubmit)();
+    });
+    return () => subscription.unsubscribe();
+  }, [watch, handleSubmit, processSubmit]);
 
   const renderBodies = () => {
     return bodies.map((body) => (
@@ -77,7 +94,7 @@ export const EclipseTimeForm = ({ onSubmit }) => {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit(processSubmit)}
         className="w-2/3 space-y-6"
       >
         <FormField
@@ -111,7 +128,10 @@ export const EclipseTimeForm = ({ onSubmit }) => {
                   placeholder="Enter Apoapsis in km"
                 />
               </FormControl>
-              <FormMessage>{fieldState.error?.message}</FormMessage>
+              {fieldState.isTouched && fieldState.error && (
+                <FormMessage>{fieldState.error.message}</FormMessage>
+              )}
+
             </FormItem>
           )}
         />
@@ -128,7 +148,10 @@ export const EclipseTimeForm = ({ onSubmit }) => {
                   placeholder="Enter Periapsis in km"
                 />
               </FormControl>
-              <FormMessage>{fieldState.error?.message}</FormMessage>
+              {fieldState.isTouched && fieldState.error && (
+                <FormMessage>{fieldState.error.message}</FormMessage>
+              )}
+
             </FormItem>
           )}
         />
@@ -154,9 +177,6 @@ export const EclipseTimeForm = ({ onSubmit }) => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="bg-amber-500">
-          Submit
-        </Button>
       </form>
     </Form>
   );
