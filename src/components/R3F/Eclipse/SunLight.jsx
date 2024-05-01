@@ -3,13 +3,13 @@ import {extend} from "@react-three/fiber";
 
 extend(HemisphereLight)
 
-export const SunLight = () => {
+export const SunLight = ({ distance }) => {
   return (
     <hemisphereLight
       skyColor={"#ffffff"}
       groundColor={"#b1e1ff"}
       intensity={0.1}
-      position={[100, 0, 0]}
+      position={[distance, 0, 0]}
     />
   );
 };

@@ -3,12 +3,12 @@ import {extend} from "@react-three/fiber";
 
 extend(DirectionalLight)
 
-export const SunDirectionalLight = () => {
+export const SunDirectionalLight = ({ distance }) => {
   return (
     <directionalLight
       color={"#ffffff"}
       intensity={1.5}
-      position={[100, 0, 5]}
+      position={[distance, 0, 5]}
       castShadow={true}
       shadow-mapSize-width={2048}
       shadow-mapSize-height={2048}
