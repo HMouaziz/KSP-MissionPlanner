@@ -1,105 +1,56 @@
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 export const Satellite = ({
+  orbitPoints,
   semiMajorAxis,
-  semiMinorAxis,
-  inclination,
-  longitudeOfAscendingNode,
-  argumentOfPeriapsis = 0, // Default value set to 0
+  delta = 1,
+  gravitationalConstant = 6.67430e-11,
+  centralMass = 5.972e24,
+  focusPosition = new THREE.Vector3(0, 0, 0),
 }) => {
   const ref = useRef();
-  const thetaRef = useRef(0);
-  const previousPosition = useRef(new THREE.Vector3());
-  const lerpFactor = 0.1;
+  const indexRef = useRef(0);
+  const speeds = useRef([]);
+  const mu = gravitationalConstant * centralMass;
 
-  const eccentricity = Math.sqrt(1 - semiMinorAxis ** 2 / semiMajorAxis ** 2);
-  const inclinationRadians = inclination * (Math.PI / 180);
-  const nodeRadians = longitudeOfAscendingNode * (Math.PI / 180);
-  const periapsisRadians = argumentOfPeriapsis * (Math.PI / 180);
+  useMemo(() => {
+    if (!orbitPoints.current || orbitPoints.current.length === 0) {
+      return;
+    }
+    const points = orbitPoints.current;
+    const speedsArray = new Array(points.length).fill(0);
+    for (let i = 0; i < points.length; i++) {
+      const r = points[i].distanceTo(focusPosition);
+      speedsArray[i] = Math.sqrt(mu * (2 / r - 1 / semiMajorAxis));
+    }
+    const maxSpeed = Math.max(...speedsArray);
+    speeds.current = speedsArray.map((speed) => speed / maxSpeed);
+  }, [orbitPoints, focusPosition, mu, semiMajorAxis]);
 
-  useFrame(({ clock }) => {
-    const delta = clock.getDelta();
-    const areaSpeed = 1000;
-    const r =
-      (semiMajorAxis * (1 - eccentricity ** 2)) /
-      (1 + eccentricity * Math.cos(thetaRef.current));
-    const dTheta = (areaSpeed * delta) / (r * r);
-    thetaRef.current += dTheta;
+  useFrame(() => {
+    if (
+      !orbitPoints.current ||
+      orbitPoints.current.length === 0 ||
+      speeds.current.length === 0
+    ) {
+      return;
+    }
 
-    const futureTheta = thetaRef.current + dTheta;
-    const futureR =
-      (semiMajorAxis * (1 - eccentricity ** 2)) /
-      (1 + eccentricity * Math.cos(futureTheta));
-
-    const futureXOrbit = futureR * Math.cos(futureTheta);
-    const futureZOrbit = futureR * Math.sin(futureTheta);
-
-    const futureX =
-      futureXOrbit *
-        (Math.cos(nodeRadians) * Math.cos(periapsisRadians) -
-          Math.sin(nodeRadians) *
-            Math.sin(periapsisRadians) *
-            Math.cos(inclinationRadians)) -
-      futureZOrbit *
-        (Math.cos(nodeRadians) * Math.sin(periapsisRadians) +
-          Math.sin(nodeRadians) *
-            Math.cos(periapsisRadians) *
-            Math.cos(inclinationRadians));
-    const futureY = futureZOrbit * Math.sin(inclinationRadians);
-    const futureZ =
-      futureXOrbit *
-        (Math.sin(nodeRadians) * Math.cos(periapsisRadians) +
-          Math.cos(nodeRadians) *
-            Math.sin(periapsisRadians) *
-            Math.cos(inclinationRadians)) +
-      futureZOrbit *
-        (Math.sin(nodeRadians) * Math.sin(periapsisRadians) -
-          Math.cos(nodeRadians) *
-            Math.cos(periapsisRadians) *
-            Math.cos(inclinationRadians));
-
-    const futurePosition = new THREE.Vector3(futureX, futureY, futureZ);
-
-    // Calculate the satellite's position in the orbital plane coordinates
-    const xOrbit = r * Math.cos(thetaRef.current);
-    const zOrbit = r * Math.sin(thetaRef.current);
-
-    // Calculate position for elliptical and inclined orbit with orientation corrections
-    const currentPosition = new THREE.Vector3(
-      xOrbit *
-        (Math.cos(nodeRadians) * Math.cos(periapsisRadians) -
-          Math.sin(nodeRadians) *
-            Math.sin(periapsisRadians) *
-            Math.cos(inclinationRadians)) -
-        zOrbit *
-          (Math.cos(nodeRadians) * Math.sin(periapsisRadians) +
-            Math.sin(nodeRadians) *
-              Math.cos(periapsisRadians) *
-              Math.cos(inclinationRadians)),
-      zOrbit * Math.sin(inclinationRadians),
-      xOrbit *
-        (Math.sin(nodeRadians) * Math.cos(periapsisRadians) +
-          Math.cos(nodeRadians) *
-            Math.sin(periapsisRadians) *
-            Math.cos(inclinationRadians)) +
-        zOrbit *
-          (Math.sin(nodeRadians) * Math.sin(periapsisRadians) -
-            Math.cos(nodeRadians) *
-              Math.cos(periapsisRadians) *
-              Math.cos(inclinationRadians)),
-    );
-
-    previousPosition.current.lerp(futurePosition, lerpFactor);
-    ref.current.position.lerp(previousPosition.current, lerpFactor);
-    previousPosition.current.copy(currentPosition);
+    const points = orbitPoints.current;
+    const pointCount = points.length;
+    const currentSpeed = speeds.current[Math.floor(indexRef.current)] || 1;
+    indexRef.current = (indexRef.current + currentSpeed * delta) % pointCount;
+    const nextPosition = points[Math.floor(indexRef.current)];
+    ref.current.position.copy(nextPosition);
   });
 
   return (
     <mesh ref={ref} receiveShadow castShadow>
-      <boxGeometry args={[0.5, 0.5, 0.5]} />
+      <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color="red" metalness={0.6} roughness={0.3} />
     </mesh>
   );
 };
+

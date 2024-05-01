@@ -7,10 +7,11 @@ import * as THREE from "three";
 import { SunVisual } from "@/components/R3F/Eclipse/SunVisual.jsx";
 import { SunDirectionalLight } from "@/components/R3F/Eclipse/SunDirectionalLight.jsx";
 import { SunLight } from "@/components/R3F/Eclipse/SunLight.jsx";
-import { OrbitPlane } from "@/components/R3F/custom/OrbitPlane.jsx";
+import { OrbitPoints} from "@/components/R3F/custom/OrbitPlane.jsx";
+import {useRef} from "react";
 
 export const EclipseCanvas = () => {
-  const orbitRadius = 10;
+  const orbitPointsRef = useRef([]);
   return (
     <div id="canvas-container" className="w-[600px] h-[400px] rounded block">
       <Canvas
@@ -23,18 +24,15 @@ export const EclipseCanvas = () => {
         <SunLight distance={150} />
 
         <CelestialBody position={[0, 0, 0]} />
-        <Satellite
-          semiMajorAxis={orbitRadius}
-          semiMinorAxis={orbitRadius}
-          inclination={90}
-          longitudeOfAscendingNode={90}
-        />
-        <OrbitPlane
-          semiMajorAxis={orbitRadius}
-          semiMinorAxis={orbitRadius}
-          inclination={90}
+        <OrbitPoints
+          semiMajorAxis={10}
+          semiMinorAxis={10}
+          inclination={0}
           longitudeOfAscendingNode={0}
+          argumentOfPeriapsis={0}
+          orbitPointsRef={orbitPointsRef}
         />
+        <Satellite orbitPoints={orbitPointsRef} semiMajorAxis={10} />
         <OrbitControls nableZoom={true} enablePan={false} enableRotate={true} />
         <CameraAdjuster />
       </Canvas>

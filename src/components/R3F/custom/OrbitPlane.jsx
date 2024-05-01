@@ -1,48 +1,88 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useThree } from "@react-three/fiber";
-import * as THREE from 'three';
+import * as THREE from "three";
 
-export const OrbitPlane = ({ semiMajorAxis, semiMinorAxis, inclination, longitudeOfAscendingNode, segments = 1000 }) => {
+export const OrbitPoints = ({
+  semiMajorAxis,
+  semiMinorAxis,
+  inclination,
+  longitudeOfAscendingNode,
+  argumentOfPeriapsis,
+  segments = 500,
+  orbitPointsRef,
+}) => {
   const { scene } = useThree();
 
-  // Convert angles from degrees to radians
   const inclinationRadians = inclination * (Math.PI / 180);
   const nodeRadians = longitudeOfAscendingNode * (Math.PI / 180);
+  const periapsisRadians = argumentOfPeriapsis * (Math.PI / 180);
+  const eccentricity = Math.sqrt(1 - semiMinorAxis ** 2 / semiMajorAxis ** 2);
 
-  const planes = useMemo(() => {
-    const angleStep = Math.PI * 2 / segments;
-    const planes = [];
+
+  const points = useMemo(() => {
+    const points = [];
+    const angleStep = (Math.PI * 2) / segments;
     for (let i = 0; i < segments; i++) {
       const angle = i * angleStep;
-      const x = semiMajorAxis * Math.cos(angle);
-      const z = semiMinorAxis * Math.sin(angle);
-      const rotationY = -angle + Math.PI / 2; // Orient the plane tangent to the curve
+      const r =
+        (semiMajorAxis * (1 - eccentricity ** 2)) /
+        (1 + eccentricity * Math.cos(angle));
+      const x = r * Math.cos(angle);
+      const z = r * Math.sin(angle);
 
-      const planeGeometry = new THREE.PlaneGeometry(0.2, 0.1);
-      const planeMaterial = new THREE.MeshStandardMaterial({ color: "white", side: THREE.DoubleSide });
-      const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
-      planeMesh.position.set(x, 0, z);
-      planeMesh.rotation.y = rotationY;
-      planeMesh.receiveShadow = true;
-
-      planes.push(planeMesh);
+      if (!isNaN(x) && !isNaN(z)) {
+        const position = new THREE.Vector3(
+          x *
+            (Math.cos(nodeRadians) * Math.cos(periapsisRadians) -
+              Math.sin(nodeRadians) *
+                Math.sin(periapsisRadians) *
+                Math.cos(inclinationRadians)) -
+            z *
+              (Math.cos(nodeRadians) * Math.sin(periapsisRadians) +
+                Math.sin(nodeRadians) *
+                  Math.cos(periapsisRadians) *
+                  Math.cos(inclinationRadians)),
+          z * Math.sin(inclinationRadians),
+          x *
+            (Math.sin(nodeRadians) * Math.cos(periapsisRadians) +
+              Math.cos(nodeRadians) *
+                Math.sin(periapsisRadians) *
+                Math.cos(inclinationRadians)) +
+            z *
+              (Math.sin(nodeRadians) * Math.sin(periapsisRadians) -
+                Math.cos(nodeRadians) *
+                  Math.cos(periapsisRadians) *
+                  Math.cos(inclinationRadians)),
+        );
+        points.push(position);
+      }
     }
-    return planes;
-  }, [semiMajorAxis, semiMinorAxis, segments]);
+    return points;
+  }, [
+    segments,
+    semiMajorAxis,
+    eccentricity,
+    nodeRadians,
+    periapsisRadians,
+    inclinationRadians,
+  ]);
 
-  useMemo(() => {
-    const group = new THREE.Group();
-    group.position.set(0, 0, 0);
-    // Apply inclination and rotation for the ascending node
-    group.rotation.set(0, -nodeRadians, inclinationRadians);
-    planes.forEach(plane => group.add(plane));
-    scene.add(group);
+  useEffect(() => {
+    if (points.length > 0) {
+      const pointMaterial = new THREE.PointsMaterial({
+        size: 0.1,
+        color: "white",
+      });
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+      const orbitPoints = new THREE.Points(geometry, pointMaterial);
+      scene.add(orbitPoints);
+      return () => scene.remove(orbitPoints);
+    }
+  }, [points, scene]);
 
-    return () => {
-      planes.forEach(plane => group.remove(plane));
-      scene.remove(group);
-    };
-  }, [planes, scene, inclinationRadians, nodeRadians]);
+  useEffect(() => {
+    orbitPointsRef.current = points;
+  }, [points, orbitPointsRef]);
 
   return null;
 };
