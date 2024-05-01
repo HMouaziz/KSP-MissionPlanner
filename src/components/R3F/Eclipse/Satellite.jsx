@@ -6,6 +6,7 @@ export const Satellite = ({
   orbitPoints,
   semiMajorAxis,
   delta = 1,
+  size,
   gravitationalConstant = 6.67430e-11,
   centralMass = 5.972e24,
   focusPosition = new THREE.Vector3(0, 0, 0),
@@ -48,7 +49,7 @@ export const Satellite = ({
 
   return (
     <mesh ref={ref} receiveShadow castShadow>
-      <boxGeometry args={[1, 1, 1]} />
+      <sphereGeometry args={[size, 32, 32]} />
       <meshStandardMaterial color="red" metalness={0.6} roughness={0.3} />
     </mesh>
   );

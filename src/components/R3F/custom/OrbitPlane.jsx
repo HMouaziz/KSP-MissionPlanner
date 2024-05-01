@@ -8,7 +8,7 @@ export const OrbitPoints = ({
   inclination,
   longitudeOfAscendingNode,
   argumentOfPeriapsis,
-  segments = 500,
+  segments = 1000,
   orbitPointsRef,
 }) => {
   const { scene } = useThree();

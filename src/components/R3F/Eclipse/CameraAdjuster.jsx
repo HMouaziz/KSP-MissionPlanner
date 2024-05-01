@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
 import { useThree } from '@react-three/fiber';
 
-const CameraAdjuster = () => {
+const CameraAdjuster = ({ cameraDistance, cameraMax }) => {
   const { camera } = useThree();
 
   useEffect(() => {
-    camera.position.set(0, 10, 30);
+    camera.position.set(0, 10, cameraDistance);
     camera.near = 0.01;
-    camera.far = 1000000;
+    camera.far = cameraMax;
     camera.fov = 90;
     camera.updateProjectionMatrix();
-  }, [camera]);
+  }, [camera, cameraDistance, cameraMax]);
 
   return null;
 };
