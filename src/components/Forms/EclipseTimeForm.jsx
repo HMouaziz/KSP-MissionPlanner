@@ -31,6 +31,8 @@ const FormSchema = z.object({
   apoapsis: numericString.transform((val) => Number(val)),
   periapsis: numericString.transform((val) => Number(val)),
   inclination: z.number(),
+  longitudeOfAscendingNode: z.number(),
+  argumentOfPeriapsis: z.number(),
 });
 
 export const EclipseTimeForm = ({ onSubmit }) => {
@@ -42,6 +44,8 @@ export const EclipseTimeForm = ({ onSubmit }) => {
       apoapsis: '0',
       periapsis: '0',
       inclination: 0,
+      longitudeOfAscendingNode: 0,
+      argumentOfPeriapsis: 0,
     },
   });
 
@@ -55,7 +59,6 @@ export const EclipseTimeForm = ({ onSubmit }) => {
       );
       setBodies(processedData);
     }
-
     fetchData();
   }, []);
 
@@ -168,6 +171,50 @@ export const EclipseTimeForm = ({ onSubmit }) => {
                   defaultValue={field.inclination}
                   min={0}
                   max={180}
+                  step={1}
+                  value={[field.value]}
+                  onValueChange={(values) => field.onChange(values[0])}
+                />
+              </FormControl>
+              <FormMessage>{fieldState.error?.message}</FormMessage>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="longitudeOfAscendingNode"
+          render={({ field, fieldState }) => (
+            <FormItem>
+              <FormLabel className="flex justify-between pb-1">
+                <p>Longitude of Ascending Node (deg)</p> <p>{field.value}&deg;</p>
+              </FormLabel>
+              <FormControl>
+                <Slider
+                  defaultValue={field.longitudeOfAscendingNode}
+                  min={0}
+                  max={360}
+                  step={1}
+                  value={[field.value]}
+                  onValueChange={(values) => field.onChange(values[0])}
+                />
+              </FormControl>
+              <FormMessage>{fieldState.error?.message}</FormMessage>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="argumentOfPeriapsis"
+          render={({ field, fieldState }) => (
+            <FormItem>
+              <FormLabel className="flex justify-between pb-1">
+                <p>Argument of Periapsis (deg)</p> <p>{field.value}&deg;</p>
+              </FormLabel>
+              <FormControl>
+                <Slider
+                  defaultValue={field.argumentOfPeriapsis}
+                  min={0}
+                  max={360}
                   step={1}
                   value={[field.value]}
                   onValueChange={(values) => field.onChange(values[0])}

@@ -17,13 +17,22 @@ export const EclipseTimePage = () => {
     apoapsis: "250",
     periapsis: "250",
     inclination: 0,
+    longitudeOfAscendingNode: 0,
+    argumentOfPeriapsis: 0,
     bodyId: 3,
   });
   const [visualisationData, setVisualisationData] = useState({
-    eccentricity: 0,
+    solarDistance: 149598261150,
+    soi: 924649202,
+    centralMass: 5.972e24,
+    celestialBodySize: 6371000,
+    celestialBodyColor: "lightblue",
+
+    semiMajorAxis: 6371250,
+    semiMinorAxis: 6371250,
     inclination: 0,
-    semi_major_axis: 6371250,
-    semi_minor_axis: 6371250
+    longitudeOfAscendingNode: 0,
+    argumentOfPeriapsis: 0,
   })
   const [calculationResult, setCalculationResult] = useState(null);
 
@@ -58,7 +67,7 @@ export const EclipseTimePage = () => {
         </CardHeader>
         <CardContent className="flex gap-2">
           <EclipseTimeForm onSubmit={handleFormSubmit} />
-          <EclipseCanvas/>
+          <EclipseCanvas data={visualisationData}/>
         </CardContent>
         <CardFooter>
           <p>Maximum transit time: {formatDuration(calculationResult) || ''}</p>

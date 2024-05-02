@@ -10,28 +10,31 @@ import { SunLight } from "@/components/R3F/Eclipse/SunLight.jsx";
 import { OrbitPoints } from "@/components/R3F/custom/OrbitPlane.jsx";
 import { useRef } from "react";
 
-export const EclipseCanvas = () => {
+export const EclipseCanvas = ({ data }) => {
   const orbitPointsRef = useRef([]);
+  // constant
   const scale = 1e-5;
-  const cameraDistance = scale * (924649202 / 4);
-  const cameraMax = scale * (149598261150 * 2);
-  const solarDistance = scale * 149598261150;
+  const satelliteSize = scale * 100000;
+  const gravitationalConstant = 6.6743e-11;
   const sunSize = scale * (696342000 * 2);
 
-  const celestialBodySize = scale * 6371000;
-  const celestialBodyColor = "lightblue";
+  // body
+  const solarDistance = scale * data.solarDistance;
+  const soi = scale * data.soi;
+  const centralMass = data.centralMass;
+  const celestialBodySize = scale * data.celestialBodySize;
+  const celestialBodyColor = data.celestialBodyColor;
 
-  const satelliteSize = scale * 100000
+  // satellite
+  const semiMajorAxis = scale * data.semiMajorAxis;
+  const semiMinorAxis = scale * data.semiMinorAxis;
+  const inclination = data.inclination;
+  const longitudeOfAscendingNode = data.longitudeOfAscendingNode;
+  const argumentOfPeriapsis = data.argumentOfPeriapsis;
 
-  const gravitationalConstant = 6.6743e-11;
-  const centralMass = 5.972e24;
-  const soi = scale * 924649202;
-
-  const semiMajorAxis = scale * 6371250;
-  const semiMinorAxis = scale * 6371250;
-  const inclination = 0;
-  const longitudeOfAscendingNode = 0;
-  const argumentOfPeriapsis = 0;
+  // dependant
+  const cameraDistance = (semiMajorAxis * semiMinorAxis / 20);
+  const cameraMax = (solarDistance * 2);
 
   return (
     <div id="canvas-container" className="w-[600px] h-[400px] rounded block">
@@ -64,7 +67,11 @@ export const EclipseCanvas = () => {
           gravitationalConstant={gravitationalConstant}
           size={satelliteSize}
         />
-        <OrbitControls enableZoom={true} enablePan={false} enableRotate={true} />
+        <OrbitControls
+          enableZoom={true}
+          enablePan={false}
+          enableRotate={true}
+        />
         <CameraAdjuster cameraDistance={cameraDistance} cameraMax={cameraMax} />
       </Canvas>
     </div>
