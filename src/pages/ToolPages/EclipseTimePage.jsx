@@ -14,8 +14,8 @@ import {EclipseCanvas} from "@/components/R3F/Eclipse/EclipseCanvas.jsx";
 
 export const EclipseTimePage = () => {
   const [formData, setFormData] = useState({
-    apoapsis: "250",
-    periapsis: "250",
+    apoapsis: "1000",
+    periapsis: "1000",
     inclination: 0,
     longitudeOfAscendingNode: 0,
     argumentOfPeriapsis: 0,

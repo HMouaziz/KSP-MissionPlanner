@@ -5,7 +5,7 @@ export const CelestialBody = ({ position, size, color }) => {
 
   return (
     <mesh ref={mesh} position={position} castShadow receiveShadow>
-      <sphereGeometry args={[size,32,32]} />
+      <sphereGeometry args={[size,64,64]} />
       <meshStandardMaterial color={color} />
     </mesh>
   );

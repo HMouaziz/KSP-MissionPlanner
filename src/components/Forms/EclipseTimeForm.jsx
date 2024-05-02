@@ -40,9 +40,9 @@ export const EclipseTimeForm = ({ onSubmit }) => {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      body: "",
-      apoapsis: '0',
-      periapsis: '0',
+      body: "Earth",
+      apoapsis: "1000",
+      periapsis: "1000",
       inclination: 0,
       longitudeOfAscendingNode: 0,
       argumentOfPeriapsis: 0,
