@@ -20,7 +20,7 @@ const formSchema = z.object({
     .min(8, { message: "Password must be at least 8 characters" }),
 });
 
-export function SignUpForm() {
+export function SignUpForm(handleSignUp) {
   const navigate = useNavigate();
 
   const form = useForm({
@@ -33,6 +33,7 @@ export function SignUpForm() {
 
   function onSubmit(values) {
     console.log(values);
+    handleSignUp(values);
     navigate("/login");
   }
 
