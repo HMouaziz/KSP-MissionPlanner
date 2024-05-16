@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useMemo, useReducer } from "react";
+import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
 
@@ -15,7 +16,6 @@ const authReducer = (state, action) => {
     case ACTIONS.setToken:
       // Set the authentication token in axios headers and local storage
       axios.defaults.headers.common["Authorization"] = "Bearer " + action.payload;
-      localStorage.setItem("token", action.payload);
 
       // Update the state with the new token
       return { ...state, token: action.payload };
@@ -23,7 +23,6 @@ const authReducer = (state, action) => {
     case ACTIONS.clearToken:
       // Clear the authentication token from axios headers and local storage
       delete axios.defaults.headers.common["Authorization"];
-      localStorage.removeItem("token");
 
       // Update the state by removing the token
       return { ...state, token: null };
@@ -38,7 +37,7 @@ const authReducer = (state, action) => {
 
 // Initial state for the authentication context
 const initialData = {
-  token: localStorage.getItem("token") || null,
+  token: Cookies.get("token") || null,
 };
 
 

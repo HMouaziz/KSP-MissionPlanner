@@ -7,10 +7,10 @@ export const TypesContext = createContext();
 export const TypesProvider = ({ children }) => {
   const queryClient = useQueryClient();
 
-  const types = useQuery({
-    queryKey: ["types"],
-    queryFn: typeService.getAllTypes,
-  });
+  // const types = useQuery({
+  //   queryKey: ["types"],
+  //   queryFn: typeService.getAllTypes,
+  // });
 
   const { mutate: addType } = useMutation({
     mutationFn: typeService.postType,
@@ -34,7 +34,7 @@ export const TypesProvider = ({ children }) => {
   });
 
   const value = {
-    types,
+    // types,
     addType,
     updateType,
     deleteType,

@@ -1,29 +1,33 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card.jsx";
-import { NavLink } from "react-router-dom";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle,} from "@/components/ui/card.jsx";
+import {NavLink} from "react-router-dom";
 import {SignUpForm} from "@/components/Auth/SignUpForm/SignUpForm.jsx";
+import hashPassword from "@/auth/hashPassword.js";
+import {authService} from "@/services/authService.js";
+import generateHMAC from "@/auth/generateHMAC.js";
+import {encryptData} from "@/auth/encryptData.js";
 
 export function SignUp() {
 
-  const handleSignUp = (data) => {
-    //split data
-
-    //hash password
-
-    //format data
-    const userData = JSON.stringify({ username: 'user', password: 'pass' });
-    //set up HMAC
-    const secretKey = 'your_secret_key'; // This should be securely shared and stored
-
-    const hmac = generateHMAC(userData, secretKey);
-    //send request
+  const handleSignUp = async (data) => {
+    try {
+      //split data
+      const {email, password} = data
+      //hash password
+      const hashedPassword = hashPassword(password);
+      //format data
+      const userData = {email, password: hashedPassword};
+      // Encrypt data
+      const encryptedData = await encryptData(JSON.stringify(userData));
+      //set up HMAC
+      const {requestId, secretKey} = await authService.getSecretKey()
+      const hmac = generateHMAC(encryptedData, secretKey);
+      //send request
+      const response = await authService.registerUser(encryptedData, hmac, requestId)
+      console.log(response)
+    } catch (error) {
+      console.error('Signup failed:', error);
+    }
   }
-
 
   return (
     <Card className="mx-auto max-w-sm my-24">

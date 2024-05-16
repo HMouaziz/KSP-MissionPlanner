@@ -8,10 +8,10 @@ export const MissionsContext = createContext();
 export const MissionsProvider = ({ children }) => {
   const queryClient = useQueryClient();
 
-  const missions = useQuery({
-    queryKey: ["missions"],
-    queryFn: missionService.getAllMissions,
-  });
+  // const missions = useQuery({
+  //   queryKey: ["missions"],
+  //   queryFn: missionService.getAllMissions,
+  // });
 
   const { mutate: addMission } = useMutation({
     mutationFn: missionService.postMission,
@@ -35,7 +35,7 @@ export const MissionsProvider = ({ children }) => {
   });
 
   const value = {
-    missions,
+    // missions,
     addMission,
     updateMission,
     deleteMission,

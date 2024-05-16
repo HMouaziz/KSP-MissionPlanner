@@ -11,7 +11,6 @@ import {
   FormMessage,
 } from "@/components/ui/form.jsx";
 import { Input } from "@/components/ui/input.jsx";
-import {useAuth} from "@/hooks/useAuth.js";
 import {useNavigate} from "react-router-dom";
 
 
@@ -23,8 +22,7 @@ const formSchema = z.object({
     .min(8, { message: "Password must be at least 8 characters" }),
 });
 
-export const LoginForm = () => {
-  const { setToken } = useAuth();
+export const LoginForm = ({handleLogIn}) => {
   const navigate = useNavigate();
 
   const form = useForm({
@@ -35,8 +33,9 @@ export const LoginForm = () => {
     },
   });
 
-  function onSubmit() {
-    setToken("this is a test token");
+  function onSubmit(values) {
+    console.log(values);
+    handleLogIn(values);
     navigate("/", { replace: true });
   }
 

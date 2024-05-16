@@ -1,7 +1,15 @@
-const crypto = require('crypto');
+import CryptoJS from "crypto-js";
 
-function generateHMAC(data, secret) {
-  const hmac = crypto.createHmac('sha256', secret);
-  hmac.update(data);
-  return hmac.digest('hex');
-}
+const generateHMAC = (message, secret) => {
+  try {
+    if (!secret) {
+      throw new Error('Secret key is undefined');
+    }
+    return CryptoJS.HmacSHA256(message, secret).toString(CryptoJS.enc.Hex);
+  } catch (error) {
+    console.error('Failed to generate HMAC:', error);
+    throw error;
+  }
+};
+
+export default generateHMAC;
