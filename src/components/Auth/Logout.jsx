@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import {LoginPage} from "@/pages/LoginPage/LoginPage.jsx";
-import axiosInstance from "@/services/apiService.js";
+import {useAuth} from "@/hooks/useAuth.js";
 
 
 const Logout = () => {
   const navigate = useNavigate();
+  const {clearAuthenticated} = useAuth()
 
   const handleLogout = () => {
-    axiosInstance.post('/api/v1/auth/logout');
+    clearAuthenticated()
     navigate("/", { replace: true });
   };
 

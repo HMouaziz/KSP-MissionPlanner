@@ -15,7 +15,7 @@ const apiService = {
       throw error;
     }
   },
-  async post(url, data, config = {}) {
+  async post(url, data= {}, config = {}) {
     try {
       const response = await requestClient.post(url, data, config);
       return response.data.data;

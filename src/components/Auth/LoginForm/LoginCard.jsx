@@ -11,9 +11,10 @@ import hashPassword from "@/auth/hashPassword.js";
 import {encryptData} from "@/auth/encryptData.js";
 import {authService} from "@/services/authService.js";
 import generateHMAC from "@/auth/generateHMAC.js";
-import axiosInstance from "@/services/apiService.js";
+import {useAuth} from "@/hooks/useAuth.js";
 
 export function LoginCard() {
+  const {checkAuth} = useAuth()
 
   const handleLogIn = async (data) => {
     try {
@@ -26,15 +27,11 @@ export function LoginCard() {
       // Encrypt data
       const encryptedData = await encryptData(JSON.stringify(userData));
       //set up HMAC
-      const { requestId, secretKey } = await authService.getSecretKey();
-      const hmac = generateHMAC(userData, secretKey);
+      const {requestId, secretKey} = await authService.getSecretKey()
+      const hmac = generateHMAC(encryptedData, secretKey);
       //send request
-      await axiosInstance.post('/api/v1/auth/signup', {data: encryptedData}, {
-        headers: {
-          'x-hmac': hmac,
-          'requestId': requestId,
-        },
-      })
+      await authService.loginUser(encryptedData, hmac, requestId)
+      checkAuth()
     } catch (error) {
       console.error('Signup failed:', error);
     }

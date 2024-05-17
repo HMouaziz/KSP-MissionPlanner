@@ -12,9 +12,9 @@ import {PublicNav} from "@/components/Navigation/Navbar/PublicNav.jsx";
 import {NavLink} from "react-router-dom";
 
 export const Navbar = () => {
-  const { token } = useAuth();
+  const { isAuthenticated } = useAuth();
 
-  if (token) {
+  if (isAuthenticated) {
     return (
       <header className="bg-background flex justify-between items-center px-4 py-0 shadow sticky top-0">
         <Logo />

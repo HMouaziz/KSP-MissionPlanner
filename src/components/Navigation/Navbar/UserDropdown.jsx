@@ -31,7 +31,7 @@ import { useAuth } from "@/hooks/useAuth.js";
 import { useNavigate } from "react-router-dom";
 
 export const UserDropdown = () => {
-  const { clearToken } = useAuth();
+  const { clearAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleProfile = () => navigate("/profile")
@@ -53,7 +53,7 @@ export const UserDropdown = () => {
   const handleSupport = () => window.open('https://github.com/HMouaziz/KSP-MissionPlanner-Client/issues', '_blank');
 
   const handleLogout = () => {
-    clearToken();
+    clearAuthenticated();
     navigate("/", { replace: true });
   };
 
