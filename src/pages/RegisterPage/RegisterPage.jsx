@@ -1,4 +1,4 @@
-import { SignUp } from "@/components/Auth/SignUpForm/SignUp.jsx";
+import { SignUp } from "@/components/Auth/SignUp/SignUp.jsx";
 
 export const RegisterPage = () => {
   return (

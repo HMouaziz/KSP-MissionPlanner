@@ -10,18 +10,22 @@ import { RegisterPage } from "@/pages/RegisterPage/RegisterPage.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { LoginPage } from "@/pages/LoginPage/LoginPage.jsx";
 import NotFoundPage from "@/pages/NotFoundPage/NotFoundPage.jsx";
-import {EclipseTimePage} from "@/pages/ToolPages/EclipseTimePage.jsx";
-import {ResonantOrbitPage} from "@/pages/ToolPages/ResonantOrbitPage.jsx";
-import {ProfilePage} from "@/pages/UserPages/ProfilePage.jsx";
-import {SettingsPage} from "@/pages/UserPages/SettingsPage.jsx";
+import { EclipseTimePage } from "@/pages/ToolPages/EclipseTimePage.jsx";
+import { ResonantOrbitPage } from "@/pages/ToolPages/ResonantOrbitPage.jsx";
+import { ProfilePage } from "@/pages/UserPages/ProfilePage.jsx";
+import { SettingsPage } from "@/pages/UserPages/SettingsPage.jsx";
 import TurboEncabulator from "@/pages/TurboEncabulator/TurboEncabulator.jsx";
-import {DeltaVPage} from "@/pages/ToolPages/DeltaVPage.jsx";
-import {InterplanetaryTrajectoryPage} from "@/pages/ToolPages/InterplanetaryTrajectoryPage.jsx";
-import {LaunchPage} from "@/pages/LaunchPage/LaunchPage.jsx";
-import {CraftPage} from "@/pages/CraftPage/CraftPage.jsx";
+import { DeltaVPage } from "@/pages/ToolPages/DeltaVPage.jsx";
+import { InterplanetaryTrajectoryPage } from "@/pages/ToolPages/InterplanetaryTrajectoryPage.jsx";
+import { LaunchPage } from "@/pages/LaunchPage/LaunchPage.jsx";
+import { CraftPage } from "@/pages/CraftPage/CraftPage.jsx";
+import UnauthorizedPage from "@/pages/NotFoundPage/UnauthorizedPage.jsx";
+import { MissionsProvider } from "@/context/MissionContext.jsx";
+import { TypesProvider } from "@/context/TypeContext.jsx";
+import { ObjectivesProvider } from "@/context/ObjectiveContext.jsx";
 
 const Routes = () => {
-  const { token } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   const routesForPublic = [
     {
@@ -79,14 +83,21 @@ const Routes = () => {
           <NotFoundPage />
         </Layout>
       ),
-
     },
   ];
 
   const routesForAuthenticatedOnly = [
     {
       path: "/",
-      element: <ProtectedRoute />,
+      element: (
+        <TypesProvider>
+          <MissionsProvider>
+            <ObjectivesProvider>
+              <ProtectedRoute />
+            </ObjectivesProvider>
+          </MissionsProvider>
+        </TypesProvider>
+      ),
       children: [
         {
           path: "/",
@@ -173,12 +184,21 @@ const Routes = () => {
         </Layout>
       ),
     },
+    {
+      path: "/401",
+      element: (
+        <Layout>
+          <UnauthorizedPage />
+        </Layout>
+      ),
+    },
   ];
 
   const router = createBrowserRouter([
     ...routesForPublic,
-    ...(!token ? routesForNotAuthenticatedOnly : []),
-    ...routesForAuthenticatedOnly,
+    ...(isAuthenticated
+      ? routesForAuthenticatedOnly
+      : routesForNotAuthenticatedOnly),
   ]);
 
   return <RouterProvider router={router} />;

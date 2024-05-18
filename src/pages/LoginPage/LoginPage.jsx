@@ -1,4 +1,4 @@
-import { LoginCard } from "@/components/Auth/LoginForm/LoginCard.jsx";
+import { LoginCard } from "@/components/Auth/Login/LoginCard.jsx";
 
 export const LoginPage = () => {
   return (

@@ -1,6 +1,7 @@
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button.jsx";
-import { Input } from "@/components/ui/input.jsx";
-import { useNavigate } from "react-router-dom";
 import {
   Form,
   FormControl,
@@ -9,9 +10,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form.jsx";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { Input } from "@/components/ui/input.jsx";
+import {useNavigate} from "react-router-dom";
+
+
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -20,7 +22,7 @@ const formSchema = z.object({
     .min(8, { message: "Password must be at least 8 characters" }),
 });
 
-export function SignUpForm({ handleSignUp }) {
+export const LoginForm = ({handleLogIn}) => {
   const navigate = useNavigate();
 
   const form = useForm({
@@ -31,17 +33,16 @@ export function SignUpForm({ handleSignUp }) {
     },
   });
 
-  function onSubmit(values) {
-    console.log(values);
-    handleSignUp(values);
-    navigate("/login");
+  const onSubmit = async (values) => {
+    await handleLogIn(values);
+    navigate("/", { replace: true });
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div className="grid gap-4">
-          <div className="grid gap-4">
+          <div className="grid gap-2">
             <FormField
               control={form.control}
               name="email"
@@ -64,18 +65,16 @@ export function SignUpForm({ handleSignUp }) {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="********" {...field} />
+                    <Input type='password' placeholder="********" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <Button type="submit" className="w-full bg-amber-500">
-            Create an account
-          </Button>
+          <Button type="submit" className="w-full bg-amber-500">Log In</Button>
         </div>
       </form>
     </Form>
   );
-}
+};

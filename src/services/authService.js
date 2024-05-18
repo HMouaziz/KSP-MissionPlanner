@@ -1,13 +1,10 @@
 import apiService from "./apiService";
-import { str2ab } from "@/auth/str2ab.js";
+import {cleanKey, str2ab} from "@/utils/authentication.js";
 
 const authService = {
   getPublicKey: async () => {
     const publicKeyPem = await apiService.get("/auth/public-key");
-    const cleanedKey = publicKeyPem
-      .replace(/-----BEGIN PUBLIC KEY-----/, "")
-      .replace(/-----END PUBLIC KEY-----/, "")
-      .replace(/\n/g, "");
+    const cleanedKey = cleanKey(publicKeyPem)
     return await window.crypto.subtle.importKey(
       "spki",
       str2ab(atob(cleanedKey)),
@@ -18,9 +15,6 @@ const authService = {
       true,
       ["encrypt"],
     );
-  },
-  getSecretKey: async () => {
-    return apiService.get("/auth/secret");
   },
   registerUser: async (payload, hmac, requestId) => {
     await apiService.post(
@@ -50,6 +44,9 @@ const authService = {
   },
   logoutUser: async () => {
     await apiService.post("/auth/logout");
+  },
+  getSecretKey: async () => {
+    return apiService.get("/auth/secret");
   },
   verifyToken: async () => {
     return await apiService.get("/auth/verify");

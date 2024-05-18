@@ -1,7 +1,6 @@
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button.jsx";
+import { Input } from "@/components/ui/input.jsx";
+import { useNavigate } from "react-router-dom";
 import {
   Form,
   FormControl,
@@ -10,10 +9,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form.jsx";
-import { Input } from "@/components/ui/input.jsx";
-import {useNavigate} from "react-router-dom";
-
-
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -22,7 +20,7 @@ const formSchema = z.object({
     .min(8, { message: "Password must be at least 8 characters" }),
 });
 
-export const LoginForm = ({handleLogIn}) => {
+export function SignUpForm({ handleSignUp }) {
   const navigate = useNavigate();
 
   const form = useForm({
@@ -34,16 +32,14 @@ export const LoginForm = ({handleLogIn}) => {
   });
 
   function onSubmit(values) {
-    console.log(values);
-    handleLogIn(values);
-    navigate("/", { replace: true });
+    handleSignUp(values);
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div className="grid gap-4">
-          <div className="grid gap-2">
+          <div className="grid gap-4">
             <FormField
               control={form.control}
               name="email"
@@ -66,16 +62,18 @@ export const LoginForm = ({handleLogIn}) => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type='password' placeholder="********" {...field} />
+                    <Input type="password" placeholder="********" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <Button type="submit" className="w-full bg-amber-500">Log In</Button>
+          <Button type="submit" className="w-full bg-amber-500">
+            Create an account
+          </Button>
         </div>
       </form>
     </Form>
   );
-};
+}
