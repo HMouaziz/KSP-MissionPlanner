@@ -7,9 +7,7 @@ import {
 } from "@/components/ui/card.jsx";
 import { NavLink } from "react-router-dom";
 import {LoginForm} from "@/components/Auth/Login/LoginForm.jsx";
-import {authService} from "@/services/authService.js";
 import {useAuth} from "@/hooks/useAuth.js";
-import {encryptData, generateHMAC, hashPassword} from "@/utils/authentication.js";
 
 export function LoginCard() {
   const {checkAuth, loginUser} = useAuth()

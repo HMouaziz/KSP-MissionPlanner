@@ -1,6 +1,7 @@
 import { authService } from "../services/authService.js";
 import CryptoJS from "crypto-js";
 
+
 const cleanKey = (publicKey) => {
   return publicKey
     .replace(/-----BEGIN PUBLIC KEY-----/, "")
@@ -46,5 +47,6 @@ const encryptData = async (data) => {
 
   return window.btoa(String.fromCharCode(...new Uint8Array(encrypted)));
 };
+
 
 export { cleanKey, hashPassword, generateHMAC, str2ab, encryptData };

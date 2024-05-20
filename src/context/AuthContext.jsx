@@ -59,7 +59,7 @@ const AuthProvider = ({children}) => {
       const {requestId, secretKey} = await authService.getSecretKey()
       const hmac = generateHMAC(encryptedData, secretKey);
 
-      const response = await authService.registerUser(encryptedData, hmac, requestId)
+      await authService.registerUser(encryptedData, hmac, requestId)
     } catch (error) {
       console.error('Signup failed:', error);
     }
