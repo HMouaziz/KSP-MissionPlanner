@@ -12,18 +12,18 @@ import {
 } from "@/components/ui/form.jsx";
 import { Input } from "@/components/ui/input.jsx";
 import {useNavigate} from "react-router-dom";
+import {useState} from "react";
 
 
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" }),
+  password: z.string().min(1, { message: "Password is required" }),
 });
 
 export const LoginForm = ({handleLogIn}) => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -63,9 +63,17 @@ export const LoginForm = ({handleLogIn}) => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className='flex justify-between'>Password
+                    <button
+                      type="button"
+                      className="ml-2 text-sm text-amber-500"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? "Hide" : "Show"}
+                    </button>
+                  </FormLabel>
                   <FormControl>
-                    <Input type='password' placeholder="********" {...field} />
+                    <Input type={showPassword ? "text" : "password"} placeholder="********" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
