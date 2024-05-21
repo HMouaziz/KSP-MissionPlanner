@@ -17,17 +17,25 @@ const authService = {
     );
   },
   registerUser: async (payload, hmac, requestId) => {
-    await apiService.post(
-      "/auth/signup",
-      { data: payload },
-      {
-        headers: {
-          "x-hmac": hmac,
-          requestId: requestId,
-          "Content-Type": "application/json",
+    try {
+      await apiService.post(
+        "/auth/signup",
+        { data: payload },
+        {
+          headers: {
+            "x-hmac": hmac,
+            requestId: requestId,
+            "Content-Type": "application/json",
+          },
         },
-      },
-    );
+      );
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        throw new Error("UserAlreadyExists");
+      } else {
+        throw error;
+      }
+    }
   },
   loginUser: async (payload, hmac, requestId) => {
     try {

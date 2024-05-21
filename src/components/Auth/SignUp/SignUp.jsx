@@ -13,10 +13,19 @@ export function SignUp() {
   const { registerUser, loginUser } = useAuth();
 
   const handleSignUp = async (formData) => {
-    await registerUser(formData);
-    setTimeout(async () => {
-      await loginUser(formData);
-    }, 1000);
+    try {
+      await registerUser(formData);
+      setTimeout(async () => {
+        await loginUser(formData);
+      }, 1000);
+    } catch (error) {
+      if (error.message === "UserAlreadyExists") {
+        return { error: "UserAlreadyExists" };
+      } else {
+        console.error("Unexpected error:", error);
+        throw error;
+      }
+    }
   };
 
   return (

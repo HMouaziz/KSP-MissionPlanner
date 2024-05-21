@@ -1,5 +1,4 @@
 import { Input } from "@/components/ui/input.jsx";
-import { useNavigate } from "react-router-dom";
 import {
   Form,
   FormControl,
@@ -33,7 +32,6 @@ const formSchema = z.object({
 });
 
 export function SignUpForm({ handleSignUp }) {
-  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -46,7 +44,27 @@ export function SignUpForm({ handleSignUp }) {
   });
 
   function onSubmit(values) {
-    handleSignUp(values);
+    try {
+      const e = handleSignUp(values);
+      if (e) {
+        form.setError("email", {
+          type: "manual",
+          message: "A User with this email already exists.",
+        });
+      }
+    } catch (error) {
+      if (error.error === "UserAlreadyExists") {
+        form.setError("email", {
+          type: "manual",
+          message: "A User with this email already exists.",
+        });
+      } else {
+        form.setError("form", {
+          type: "manual",
+          message: "An unexpected error occurred. Please try again later.",
+        });
+      }
+    }
   }
 
   return (
@@ -74,7 +92,8 @@ export function SignUpForm({ handleSignUp }) {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className='flex justify-between'>Password
+                  <FormLabel className="flex justify-between">
+                    Password
                     <button
                       type="button"
                       className="ml-2 text-sm text-amber-500"

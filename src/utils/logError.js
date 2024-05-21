@@ -1,7 +1,7 @@
 const logError = (error) => {
   if (error.response) {
     const status = error.response.status;
-    const errorMessage = error.response.data.message;
+    const errorMessage = error.response.data.error;
     const errorConfig = error.response.config
     const endpoint = error.response.config.url;
     const formattedError = formatErrorMessage(status, errorMessage, errorConfig);
@@ -18,6 +18,11 @@ const logError = (error) => {
           console.warn(`Login failed. Status: ${status}, Error: ${errorMessage}`);
           return;
       }
+    }
+
+    if (endpoint.includes('/auth/signup')) {
+      console.warn(`Registration failed. Status: ${status}, Error: ${errorMessage}`);
+      return;
     }
 
     switch (status) {
