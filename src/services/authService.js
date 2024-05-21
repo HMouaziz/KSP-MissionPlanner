@@ -30,17 +30,27 @@ const authService = {
     );
   },
   loginUser: async (payload, hmac, requestId) => {
-    await apiService.post(
-      "/auth/login",
-      { data: payload },
-      {
-        headers: {
-          "x-hmac": hmac,
-          requestId: requestId,
-          "Content-Type": "application/json",
-        },
-      },
-    );
+    try {
+      await apiService.post(
+        "/auth/login",
+        { data: payload },
+        {
+          headers: {
+            "x-hmac": hmac,
+            requestId: requestId,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        throw new Error('UserNotFound');
+      } else if (error.response && error.response.status === 401) {
+        throw new Error('PasswordMismatch');
+      } else {
+        throw error;
+      }
+    }
   },
   logoutUser: async () => {
     await apiService.post("/auth/logout");

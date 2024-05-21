@@ -15,7 +15,6 @@ import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 
 
-
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   password: z.string().min(1, { message: "Password is required" }),
@@ -34,8 +33,18 @@ export const LoginForm = ({handleLogIn}) => {
   });
 
   const onSubmit = async (values) => {
-    await handleLogIn(values);
-    navigate("/", { replace: true });
+    try {
+      await handleLogIn(values);
+      // navigate("/", { replace: true });
+    } catch (error) {
+      if (error.message === 'UserNotFound') {
+        form.setError('email', { type: 'manual', message: 'User does not exist. Please check your email and try again.' });
+      } else if (error.message === 'PasswordMismatch') {
+        form.setError('password', { type: 'manual', message: 'Incorrect password. Please try again.' });
+      } else {
+        form.setError('form', { type: 'manual', message: 'An unexpected error occurred. Please try again later.' });
+      }
+    }
   }
 
   return (
