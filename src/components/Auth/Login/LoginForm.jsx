@@ -35,7 +35,7 @@ export const LoginForm = ({handleLogIn}) => {
   const onSubmit = async (values) => {
     try {
       await handleLogIn(values);
-      // navigate("/", { replace: true });
+      navigate("/", { replace: true });
     } catch (error) {
       if (error.message === 'UserNotFound') {
         form.setError('email', { type: 'manual', message: 'User does not exist. Please check your email and try again.' });
