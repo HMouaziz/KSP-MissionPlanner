@@ -6,9 +6,16 @@ import {
   CardTitle,
 } from "@/components/ui/card.jsx";
 import { NavLink } from "react-router-dom";
-import {LoginForm} from "@/components/Auth/LoginForm/LoginForm.jsx";
+import {LoginForm} from "@/components/Auth/Login/LoginForm.jsx";
+import {useAuth} from "@/hooks/useAuth.js";
 
 export function LoginCard() {
+  const {checkAuth, loginUser} = useAuth()
+
+  const handleLogIn = async (formData) => {
+    await loginUser(formData);
+    await checkAuth();
+  }
   return (
     <Card className="mx-auto max-w-sm my-24">
       <CardHeader>
@@ -18,7 +25,7 @@ export function LoginCard() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <LoginForm />
+        <LoginForm handleLogIn={handleLogIn}/>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
           <NavLink to="/register" className="underline">

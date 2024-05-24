@@ -11,21 +11,18 @@ import {
   FormMessage,
 } from "@/components/ui/form.jsx";
 import { Input } from "@/components/ui/input.jsx";
-import {useAuth} from "@/hooks/useAuth.js";
 import {useNavigate} from "react-router-dom";
-
+import {useState} from "react";
 
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" }),
+  password: z.string().min(1, { message: "Password is required" }),
 });
 
-export const LoginForm = () => {
-  const { setToken } = useAuth();
+export const LoginForm = ({handleLogIn}) => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -35,9 +32,19 @@ export const LoginForm = () => {
     },
   });
 
-  function onSubmit() {
-    setToken("this is a test token");
-    navigate("/", { replace: true });
+  const onSubmit = async (values) => {
+    try {
+      await handleLogIn(values);
+      navigate("/", { replace: true });
+    } catch (error) {
+      if (error.message === 'UserNotFound') {
+        form.setError('email', { type: 'manual', message: 'User does not exist. Please check your email and try again.' });
+      } else if (error.message === 'PasswordMismatch') {
+        form.setError('password', { type: 'manual', message: 'Incorrect password. Please try again.' });
+      } else {
+        form.setError('form', { type: 'manual', message: 'An unexpected error occurred. Please try again later.' });
+      }
+    }
   }
 
   return (
@@ -65,9 +72,17 @@ export const LoginForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className='flex justify-between'>Password
+                    <button
+                      type="button"
+                      className="ml-2 text-sm text-amber-500"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? "Hide" : "Show"}
+                    </button>
+                  </FormLabel>
                   <FormControl>
-                    <Input type='password' placeholder="********" {...field} />
+                    <Input type={showPassword ? "text" : "password"} placeholder="********" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

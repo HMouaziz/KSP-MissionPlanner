@@ -1,8 +1,9 @@
 import axios from 'axios';
+import logError from "@/utils/logError.js";
 
 const requestClient = axios.create({
-  baseURL: 'http://localhost:5050/api',
-  // Add auth header here !!!!
+  baseURL: 'http://localhost:5050/api/v1',
+  withCredentials: true
 });
 
 const apiService = {
@@ -11,25 +12,25 @@ const apiService = {
       const response = await requestClient.get(url);
       return response.data.data;
     } catch (error) {
-      console.error('API call failed. Error: ', error);
+      logError(error);
       throw error;
     }
   },
-  async post(url, data) {
+  async post(url, data= {}, config = {}) {
     try {
-      const response = await requestClient.post(url, data);
+      const response = await requestClient.post(url, data, config);
       return response.data.data;
     } catch (error) {
-      console.error('API call failed. Error: ', error);
+      logError(error);
       throw error;
     }
   },
-  async put(url, data) {
+  async put(url, data, config= {}) {
     try {
-      const response = await requestClient.put(url, data);
+      const response = await requestClient.put(url, data, config);
       return response.data.data;
     } catch (error) {
-      console.error('API call failed. Error: ', error);
+      logError(error);
       throw error;
     }
   },
@@ -38,7 +39,7 @@ const apiService = {
       const response = await requestClient.delete(url);
       return response.data.data;
     } catch (error) {
-      console.error('API call failed. Error: ', error);
+      logError(error);
       throw error;
     }
   },

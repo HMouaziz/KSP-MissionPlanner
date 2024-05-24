@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.full-minus-72 {
-    height: calc(100vh - 72px);
-}
+
+
 
 @layer base {
     :root {

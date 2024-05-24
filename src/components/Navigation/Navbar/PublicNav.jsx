@@ -5,42 +5,48 @@ import {
   NavigationMenuLink,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu.jsx";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const tools = [
   {
     title: "DeltaV Route Planner",
-    href: "/tools",
+    href: "/tools/deltaV-route-planner",
     description:
       "Efficiently calculate propulsion requirements for any space journey, customizable with detailed orbital and transfer paths.",
   },
   {
     title: "Eclipse-Time Calculator",
-    href: "/tools",
+    href: "/tools/eclipse-time-calculator",
     description:
       "Precisely predict the shadow periods of satellites to optimize solar power generation.",
   },
   {
     title: "Resonant Orbit Calculator",
-    href: "/tools",
+    href: "/tools/resonant-orbit-calculator",
     description:
       "Quickly compute and optimize resonant orbital parameters for satellite deployments and celestial alignments.",
   },
   {
-    title: "Interplanetary Trajectory Calculator",
-    href: "/tools",
+    title: "Interplanetary Trajectory Planner",
+    href: "/tools/interplanetary-trajectory-planner",
     description:
       "Design complex space missions with multi-gravity assist routes to navigate through the solar system efficiently.",
   },
 ];
 
 export function PublicNav() {
+  const nav = useNavigate()
+
+  const handleToolsClick = () => {
+    nav('/tools')
+  }
+
   return (
     <>
       <NavigationMenuItem>
       <NavigationMenuTrigger>Features</NavigationMenuTrigger>
       <NavigationMenuContent>
-        <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+        <ul className="grid gap-3 p-6 md:w-[500px] lg:w-[600px] lg:grid-cols-[.75fr_1fr]">
           <li className="row-span-3">
             <NavigationMenuLink asChild>
               <a
@@ -77,10 +83,10 @@ export function PublicNav() {
         </ul>
       </NavigationMenuContent>
     </NavigationMenuItem>
-      <NavigationMenuItem>
+      <NavigationMenuItem onClick={handleToolsClick}>
         <NavigationMenuTrigger>Tools</NavigationMenuTrigger>
         <NavigationMenuContent>
-          <ul className="grid w-[300px] gap-3 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] ">
+          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
             {tools.map((component) => (
               <ListItem
                 key={component.title}

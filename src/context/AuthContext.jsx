@@ -1,68 +1,107 @@
-import axios from "axios";
-import { createContext, useMemo, useReducer } from "react";
+import { createContext, useEffect, useMemo, useReducer } from "react";
+import { authService } from "@/services/authService.js";
+import {
+  encryptData,
+  generateHMAC,
+  hashPassword,
+} from "@/utils/authentication.js";
 
 export const AuthContext = createContext();
 
-// Define the possible actions for the authReducer
 const ACTIONS = {
-  setToken: "setToken",
-  clearToken: "clearToken",
+  setAuthenticated: "setAuthenticated",
+  clearAuthenticated: "clearAuthenticated",
 };
 
-// Reducer function to handle authentication state changes
 const authReducer = (state, action) => {
   switch (action.type) {
-    case ACTIONS.setToken:
-      // Set the authentication token in axios headers and local storage
-      axios.defaults.headers.common["Authorization"] = "Bearer " + action.payload;
-      localStorage.setItem("token", action.payload);
-
-      // Update the state with the new token
-      return { ...state, token: action.payload };
-
-    case ACTIONS.clearToken:
-      // Clear the authentication token from axios headers and local storage
-      delete axios.defaults.headers.common["Authorization"];
-      localStorage.removeItem("token");
-
-      // Update the state by removing the token
-      return { ...state, token: null };
-
+    case ACTIONS.setAuthenticated:
+      return { ...state, isAuthenticated: action.payload };
+    case ACTIONS.clearAuthenticated:
+      return { ...state, isAuthenticated: false };
     default:
       console.error(
-        `You passed an action.type: ${action.type} which doesn't exist`
+        `You passed an action.type: ${action.type} which doesn't exist`,
       );
-      return state
+      return state;
   }
 };
 
-// Initial state for the authentication context
 const initialData = {
-  token: localStorage.getItem("token") || null,
+  isAuthenticated: false,
 };
 
-
 const AuthProvider = ({ children }) => {
-  // Use reducer to manage the authentication state
   const [state, dispatch] = useReducer(authReducer, initialData);
 
-  const setToken = (newToken) => {
-    // Dispatch the setToken action to update the state
-    dispatch({ type: ACTIONS.setToken, payload: newToken });
+  const checkAuth = async () => {
+    try {
+      const data = await authService.verifyToken();
+      dispatch({
+        type: ACTIONS.setAuthenticated,
+        payload: data.isAuthenticated,
+      });
+    } catch (error) {
+      console.error("Unexpected error:", error);
+    }
   };
 
-  const clearToken = () => {
-    // Dispatch the clearToken action to update the state
-    dispatch({ type: ACTIONS.clearToken });
+  const clearAuthenticated = async () => {
+    dispatch({ type: ACTIONS.clearAuthenticated });
   };
+
+  const registerUser = async (formData) => {
+    const { email, password } = formData;
+
+    const hashedPassword = hashPassword(password);
+
+    const userData = { email, password: hashedPassword };
+
+    const encryptedData = await encryptData(JSON.stringify(userData));
+
+    const { requestId, secretKey } = await authService.getSecretKey();
+    const hmac = generateHMAC(encryptedData, secretKey);
+
+    await authService.registerUser(encryptedData, hmac, requestId);
+  };
+
+  const loginUser = async (formData) => {
+    const { email, password } = formData;
+
+    const hashedPassword = hashPassword(password);
+
+    const userData = { email, password: hashedPassword };
+
+    const encryptedData = await encryptData(JSON.stringify(userData));
+
+    const { requestId, secretKey } = await authService.getSecretKey();
+    const hmac = generateHMAC(encryptedData, secretKey);
+
+    await authService.loginUser(encryptedData, hmac, requestId);
+  };
+
+  const logoutUser = async () => {
+    try {
+      await authService.logoutUser();
+      await clearAuthenticated();
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   const contextValue = useMemo(
     () => ({
       ...state,
-      setToken,
-      clearToken,
+      checkAuth,
+      registerUser,
+      loginUser,
+      logoutUser,
     }),
-    [state]
+    [state],
   );
 
   return (
